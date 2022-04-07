@@ -3,6 +3,7 @@
   height: 100vh;
   display: flex;
 }
+
 .left__section {
   width: 600px;
   height: 100vh;
@@ -15,21 +16,22 @@
   width: 90%;
 }
 .right__section {
-  width:calc(100% - 600px);
+  width: calc(100% - 600px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .right__section .form__wrapper {
-  width:50%;
+  width: 50%;
 }
 .right__section h1 {
   font-family: var(--bold);
-  margin:0;
+  margin: 0;
 }
 .right__section span {
   font-family: var(--medium);
 }
+
 
 
 .input__wrapper {
@@ -39,54 +41,87 @@
   position: relative;
 }
 .input__wrapper label {
-  font-size:14px;
+  font-size: 14px;
   font-family: var(--bold);
-  margin-bottom:4px;
+  margin-bottom: 4px;
 }
 .input__wrapper input {
-  border: 1.5px solid #3861FB;
-  padding:16px;
-  border-radius:4px;
-  padding-left:48px;
+  border: 1.5px solid #3861fb;
+  padding: 16px;
+  border-radius: 4px;
+  padding-left: 48px;
   font-family: var(--medium);
 }
 
 .form__wrapper button {
-  border:none;
-  border-radius:4px;
+  border: none;
+  border-radius: 4px;
   padding: 16px 18px;
-  width:100%;
+  width: 100%;
   font-family: var(--bold);
-  color:#fff;
+  color: #fff;
   background-color: var(--main);
 }
 
-.form__wrapperHeader  {
-  margin-bottom:48px;
+.form__wrapperHeader {
+  margin-bottom: 48px;
 }
 
 .form__wrapperHeader span a {
-  color:var(--main);
+  color: var(--main);
   text-decoration: none;
 }
 
 .input__wrapper a {
   position: absolute;
   display: block;
-  color:var(--main);  
-  right:0;
-  text-decoration:none;
+  color: var(--main);
+  right: 0;
+  text-decoration: none;
   font-family: var(--medium);
-  margin-bottom:8px;
+  margin-bottom: 8px;
   font-size: 14px;
 }
 
 .input__wrapper .input--icon {
   position: absolute;
-  top:40px;
-  left:16px;
+  top: 40px;
+  left: 16px;
 }
 .input__wrapper .input--icon svg {
-  width:24px;
+  width: 24px;
   height: 24px;
+}
+
+
+
+@media screen and (max-width: 320px) {
+  .auth {
+    flex-direction: column;
+  }
+  .left__section {
+    width: 100%;
+    padding-top: 20px;
+  }
+  .left__section img {
+    width: 50%;
+  }
+  .right__section {
+    width: 100%;
+  }
+  .right__section .form__wrapper {
+    width: 100%;
+    padding: 16px;
+  }
+  .right__section h1 {
+    font-size: 20px;
+  }
+  .right__section span {
+    font-size: 14px;
+  }
+
+  .form__wrapperHeader {
+    margin-bottom:20px;
+    margin-top:50px;
+  }
 }

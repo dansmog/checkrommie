@@ -8,9 +8,6 @@ import Star from "../../assets/images/star";
 import SplitPayment from "../../assets/images/split-payment";
 import Search from "../../assets/images/search";
 import FooterImage from "../../assets/images/footerImage.png";
-import ModalWrapper from "../../components/Modal";
-import { MouseEventHandler, useState } from "react";
-import Rodal from "rodal";
 
 const LandingPage = () => {
   return (
