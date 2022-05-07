@@ -32,8 +32,27 @@
   font-family: var(--medium);
 }
 
+.password__error {
+  background-color:rgba(255, 0, 0, 0.06);
+  margin-bottom: 24px;
+  padding:16px;
+}
+.password__error p {
+  color: #ff0000;
+  margin:0;
+  font-family: var(--medium);
+}
 
+.success__container {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+}
 
+.success__container p {
+  font-family: var(--medium);
+}
 .input__wrapper {
   display: flex;
   flex-direction: column;
@@ -92,15 +111,38 @@
   width: 24px;
   height: 24px;
 }
+.input__wrapper .right {
+  left: 386px;
+  cursor: pointer;
+}
+.gender__wrapper {
+  display: flex;
+  margin-bottom: 24px;
+}
+.gender__wrapper label:first-child{
+  margin-right: 24px;
+}
+.gender__wrapper label {
+  display: flex;
+  align-items: center;
+  font-family: var(--medium);
+  cursor: pointer;
+}
+.gender__wrapper label input {
+  margin-right: 8px;
+}
 
 
-
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
+  .input__wrapper .right {
+    left: 326px;
+  }
   .auth {
     flex-direction: column;
   }
   .left__section {
     width: 100%;
+    height:auto;
     padding-top: 20px;
   }
   .left__section img {

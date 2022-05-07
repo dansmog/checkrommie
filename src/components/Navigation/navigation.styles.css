@@ -1,0 +1,16 @@
+.navigation {
+  background-color: rgba(249, 198, 0, 0.1);
+  height: 80px;
+}
+
+.navigation span svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.navigation span {
+  display: flex;
+  align-items: center;
+  font-family: var(--bold);
+}

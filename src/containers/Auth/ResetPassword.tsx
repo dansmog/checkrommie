@@ -4,19 +4,20 @@ import heroImage from "../../assets/images/hero-photo.png";
 import { Link } from "react-router-dom";
 import User from "../../assets/images/user";
 import Padlock from "../../assets/images/padlock";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import httpRequestHelper from "../utils/httpRequest.helper";
 import Spinner from "../../assets/images/spinner";
 import VisibleEyes from "../../assets/images/visibleEye";
 
 interface IData {
-  email: string;
   password: string;
+  password_confirm: string;
 }
-const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+const ResetPassword = () => {
+  const [data, setData] = useState({ password: "", password_confirm: "" });
   const [isLoading, setLoading] = useState(false);
+  const [token, setToken] = useState("");
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -32,37 +33,39 @@ const Login = () => {
   };
 
   const onSubmit = async () => {
-    const payload = data;
-    const { email, password } = data;
-    if (!email || !password) {
+    console.log("working");
+    const payload = {
+      ...data,
+      token,
+    };
+    const { password, password_confirm } = data;
+    console.log({ password, password_confirm });
+    if (!password || !password_confirm) {
+      return;
+    }
+    if (password !== password_confirm) {
       return;
     } else {
       setLoading(true);
+      console.log("workig here");
       try {
-        const { data } = await httpRequestHelper.post("/auth/login", payload);
-        setLoading(false);
-        console.log({ data });
-        toast.success("Log in successful");
-        window.localStorage.setItem(
-          "checkrommie__user",
-          JSON.stringify(data.data)
+        const { data } = await httpRequestHelper.post(
+          `/auth/reset-password`,
+          payload
         );
+        toast.success("Password reset successfully, redirecting to login page");
+        setLoading(false);
         setTimeout(() => {
-          window.location.replace("/profile");
+          window.location.replace("/login");
         }, 3000);
       } catch (err: any) {
         setLoading(false);
-        if (
-          err.response.status === 401 &&
-          err.response.data.message == "Kindly confirm your email address"
-        ) {
-          console.log("here now");
-          toast.error(err.response.data.message);
-          return setError(err.response.data.message);
-        }
         if (err.response.status === 400) {
-          return toast.error(err.response.data.message);
+          toast.error(err.response.data.message[0]);
+          setError(err.response.data.message);
+          console.log("i am here");
         }
+
         console.log({
           message: err.response.data.message,
           status: err.response.status,
@@ -71,28 +74,16 @@ const Login = () => {
     }
   };
 
-  const resendConfirmation = async () => {
-    const payload = {
-      email: data.email,
-    };
-    try {
-      const { data } = await httpRequestHelper.post(
-        "/email-confirmation/resend-link",
-        payload
-      );
-      toast.success("Please check your email");
-      setLoading(false);
-    } catch (err: any) {
-      setLoading(false);
-      if (err.response.status === 400) {
-        return toast.error(err.response.data.message);
-      }
-      console.log({
-        message: err.response.data.message,
-        status: err.response.status,
-      });
-    }
-  };
+  useEffect(() => {
+    const qparams = window.location.search;
+    let params = new URLSearchParams(qparams);
+    let token = params.get("token") as string;
+    setToken(token);
+  }, []);
+
+  useEffect(() => {
+    console.log({ error });
+  }, [error]);
 
   return (
     <section className="auth">
@@ -103,41 +94,16 @@ const Login = () => {
       <div className="right__section">
         <div className="form__wrapper">
           <div className="form__wrapperHeader">
-            <h1>Log in</h1>
-            <span>
-              Don't have an account yet?{" "}
-              <Link to="/signup">Create an account</Link>
-            </span>
+            <h1>Reset password</h1>
+            <span>Enter your new password</span>
           </div>
           {error && (
             <div className="password__error">
               <p>
-                {error}{" "}
-                <span
-                  style={{
-                    color: "blue",
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                  }}
-                  onClick={resendConfirmation}
-                >
-                  Resend confirmation token
-                </span>
+                {error} <Link to="/forgot">Reset password</Link>
               </p>
             </div>
           )}
-          <div className="input__wrapper">
-            <label>Email</label>
-            <input
-              type="email"
-              alt=""
-              name="email"
-              onChange={onHandleInputChange}
-            />
-            <span className="input--icon">
-              <User />
-            </span>
-          </div>
           <div className="input__wrapper">
             <label>Password</label>
             <input
@@ -146,7 +112,21 @@ const Login = () => {
               name="password"
               onChange={onHandleInputChange}
             />
-            <Link to="/forgot">Forgot password</Link>
+            <span className="input--icon">
+              <Padlock />
+            </span>
+            <span className="input--icon right" onClick={toggleVisibility}>
+              <VisibleEyes />
+            </span>
+          </div>
+          <div className="input__wrapper">
+            <label>Confirm password</label>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              alt=""
+              name="password_confirm"
+              onChange={onHandleInputChange}
+            />
             <span className="input--icon">
               <Padlock />
             </span>
@@ -155,12 +135,15 @@ const Login = () => {
             </span>
           </div>
           <button onClick={onSubmit}>
-            {isLoading ? <Spinner /> : "Log in"}
+            {isLoading ? <Spinner /> : "Reset your password"}
           </button>
+          <span style={{ paddingTop: 16, display: "block" }}>
+            Back to login <Link to="/login">Login</Link>
+          </span>
         </div>
       </div>
     </section>
   );
 };
 
-export default Login;
+export default ResetPassword;

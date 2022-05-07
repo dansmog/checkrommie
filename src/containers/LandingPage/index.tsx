@@ -89,7 +89,7 @@ const Features = () => {
         </div>
         <div className="features__list">
           <div className="row">
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="feature__card">
                 <User />
                 <h6>Create an account</h6>
@@ -99,7 +99,7 @@ const Features = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="feature__card">
                 <Wallet />
                 <h6>Fill up your profile and flatmate qualities</h6>
@@ -109,7 +109,7 @@ const Features = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="feature__card">
                 <People />
                 <h6>Get flatmates results</h6>
@@ -139,7 +139,7 @@ const Benefits = () => {
         </div>
         <div className="benefits__list">
           <div className="row">
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <Search />
                 <h6>Fast and efficient search</h6>
@@ -149,7 +149,7 @@ const Benefits = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <Wallet />
                 <h6>Group rent savings</h6>
@@ -159,7 +159,7 @@ const Benefits = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <SplitPayment />
                 <h6>Split rent payments</h6>
@@ -169,9 +169,8 @@ const Benefits = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="row mt-5">
-            <div className="col-12 col-sm-4">
+
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <Search />
                 <h6>Fast and efficient search</h6>
@@ -181,7 +180,7 @@ const Benefits = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <Wallet />
                 <h6>Group rent savings</h6>
@@ -191,7 +190,7 @@ const Benefits = () => {
                 </p>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="benefit__card">
                 <SplitPayment />
                 <h6>Split rent payments</h6>

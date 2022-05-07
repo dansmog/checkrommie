@@ -83,6 +83,10 @@
   padding: 16px 18px;
   border-radius: 4px;
 }
+.navigation__right {
+  display: flex;
+  align-items: center;
+}
 
 .features,
 .benefits {
@@ -137,7 +141,7 @@ footer {
   padding: 64px 0;
   color: #fff;
   position: relative;
-  margin-top:200px;
+  margin-top: 200px;
 }
 
 .footer--image {
@@ -163,18 +167,83 @@ footer p {
   border-radius: 4px;
   border: none;
   background-color: #fff;
-  width:134px;
-  height:52px;
-  margin-top:24px;
+  width: 134px;
+  height: 52px;
+  margin-top: 24px;
 }
-
 
 .copyright {
-  padding-top:50px;
+  padding-top: 50px;
 }
 .copyright__footerLinks a {
-  padding:0 24px;
-  color:#fff;
+  padding: 0 24px;
+  color: #fff;
   text-decoration: none;
   font-family: var(--medium);
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    margin-bottom: 50px;
+  }
+  .navigation__wrapper {
+    align-items: center;
+    height: 80px;
+  }
+  .navigation__left a {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .navigation .navigation__right a {
+    font-size: 14px;
+    padding-right: 12px;
+  }
+  .navigation .navigation__right button {
+    padding: 12px 14px;
+  }
+  .masthead h1,
+  .features h1,
+  .benefits h1,
+  footer h1 {
+    font-size: var(--size-24);
+    line-height: normal;
+  }
+  .masthead p {
+    font-size: var(--size-16);
+  }
+  .masthead .action--btn button {
+    padding: 12px 14px;
+  }
+  .masthead .action--btn span {
+    font-size: 12px;
+  }
+  .masthead h1 span::before {
+    display: none;
+  }
+  .masthead {
+    padding-bottom: 50px;
+  }
+
+  .w-50 {
+    width: 80% !important;
+  }
+  .features p,
+  .benefits p,
+  footer p {
+    font-size: 16px;
+  }
+  .features {
+    padding-top: 50px;
+  }
+  .features__list,
+  .benefits__list {
+    padding-top: 50px;
+  }
+  .footer--image img {
+    width: 300px;
+  }
+
+  .copyright__footerLinks a {
+    font-size: 14px;
+  }
 }

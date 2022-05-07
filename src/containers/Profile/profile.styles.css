@@ -1,0 +1,75 @@
+.profile__container {
+  padding-top: 79px;
+  width: 398px;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.profile__container .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+.profile__container .header h1 {
+  font-size: 20px;
+  font-family: var(--bold);
+}
+
+.profile__container .header p {
+  font-size: 16px;
+  font-family: var(--regular);
+  text-align: center;
+}
+
+.gender__container {
+  display: flex;
+}
+.gender__container span {
+  font-family: var(--medium);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.gender__container span:nth-child(2) {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+.gender__container span input {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.apartment__alert {
+  background: rgba(56, 97, 251, 0.1);
+  border: 1px solid #3861fb;
+  border-radius: 8px;
+  padding: 16px;
+  color: #3861fb;
+  margin-bottom: 24px;
+}
+
+.apartment__alert p {
+  font-family: var(--medium);
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+select {
+  width: 100%;
+  border: 1.5px solid #3861fb;
+  border-radius: 4px;
+  padding: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: var(--regular);
+}
+
+select::-ms-expand {
+  display: none;
+}
+.profile__container input {
+  padding-left:16px;
+}
