@@ -8,6 +8,8 @@ import Star from "../../assets/images/star";
 import SplitPayment from "../../assets/images/split-payment";
 import Search from "../../assets/images/search";
 import FooterImage from "../../assets/images/footerImage.png";
+import Menu from "../../assets/images/Menu";
+import Logo from "../../assets/images/rommie_logo_blue.png";
 
 const LandingPage = () => {
   return (
@@ -24,19 +26,34 @@ export default LandingPage;
 
 const Navigation = () => {
   return (
-    <section className="navigation">
+    <section className="navigation no-bg">
       <div className="container">
         <div className="row">
           <div className="col-sm-12">
             <div className="navigation__wrapper d-flex justify-content-between">
               <div className="navigation__left">
-                <NavLink to="/explore">Explore</NavLink>
-                <NavLink to="/landlords">For landlords</NavLink>{" "}
-                <NavLink to="/agents">For agents</NavLink>
+                <NavLink to="/">
+                  <img src={Logo} alt="logo" className="logo" />
+                </NavLink>
+                <NavLink to="/explore" className="hidden-sm">
+                  Explore
+                </NavLink>
+                <NavLink to="/landlords" className="hidden-sm">
+                  For landlords
+                </NavLink>{" "}
+                <NavLink to="/agents" className="hidden-sm">
+                  For agents
+                </NavLink>
               </div>
               <div className="navigation__right">
-                <Link to="/login">Log in</Link>
-                <button>Get started</button>
+                <NavLink to="/explore" className="hidden-lg show-sm">Explore</NavLink>
+                <Link to="/login" className="hidden-sm">
+                  Log in
+                </Link>
+                <button className="hidden-sm">Get started</button>
+                <span className="hidden-lg show-sm">
+                  <Menu />
+                </span>
               </div>
             </div>
           </div>

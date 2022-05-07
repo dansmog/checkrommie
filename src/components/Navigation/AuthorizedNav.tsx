@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import User from "../../assets/images/user";
+import Logo from "../../assets/images/rommie_logo_blue.png";
 
-
-import "./navigation.styles.css"
+import "./navigation.styles.css";
+import Menu from "../../assets/images/Menu";
 
 const AuthorizedNav = () => {
   const [user, setUser] = useState("");
@@ -23,13 +24,30 @@ const AuthorizedNav = () => {
         <div className="row">
           <div className="col-sm-12">
             <div className="navigation__wrapper d-flex justify-content-between">
-              <div className="navigation__left"></div>
+              <div className="navigation__left">
+                <NavLink to="/">
+                  <img src={Logo} alt="logo" className="logo" />
+                </NavLink>
+              </div>
               <div className="navigation__right">
-                <NavLink to="/explore">Explore</NavLink>
-                <Link to="/login">Log out</Link>
-                <span>
+                <NavLink to="/explore" className="hidden-sm">
+                  Explore
+                </NavLink>
+                <NavLink to="/apartment" className="hidden-sm">
+                  My apartment
+                </NavLink>
+                <NavLink to="/profile" className="hidden-sm">
+                  My Profile
+                </NavLink>
+                <Link to="/login" className="hidden-sm">
+                  Log out
+                </Link>
+                <span className="hidden-sm">
                   <User />
                   {user && user}
+                </span>
+                <span className="hidden-lg show-sm">
+                  <Menu />
                 </span>
               </div>
             </div>

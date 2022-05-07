@@ -29,7 +29,7 @@ const Profile = () => {
     e.preventDefault();
     console.log(data)
   }
-  
+
   return (
     <section>
       <AuthorizedNav />
@@ -188,7 +188,7 @@ const Profile = () => {
               })}
             </select>
           </div>
-          <button onClick={onSubmit}>Update your profile</button>
+          <button onClick={onSubmit} className="action__button">Update your profile</button>
         </form>
       </section>
     </section>

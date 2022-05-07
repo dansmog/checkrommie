@@ -1,5 +1,6 @@
 .profile__container {
   padding-top: 79px;
+  padding-bottom:100px;
   width: 398px;
   margin: 0 auto;
   flex-direction: column;
@@ -71,5 +72,32 @@ select::-ms-expand {
   display: none;
 }
 .profile__container input {
-  padding-left:16px;
+  padding-left: 16px;
+}
+
+.action__button {
+  background: #3861fb;
+  border-radius: 8px;
+  color:#fff;
+  font-family: var(--bold);
+  border:none;
+  width:100%;
+  padding: 16px;
+}
+
+
+.profile__container {
+  padding: 16px;
+  width:100%;
+}
+
+.input__wrapper input {
+  padding-left: 16px !important;
+}
+
+.profile__container .header h1 {
+  font-size: 20px;
+}
+.profile__container .header p {
+  font-size: 14px;
 }

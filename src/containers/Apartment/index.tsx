@@ -10,8 +10,10 @@ const Apartment = () => {
   const [shortName, setShortName] = useState("");
   const [hasState, setHasState] = useState(false);
   const [states, setStates] = useState([]);
+  const [state, setState] = useState("");
   const countries = countrydata.getCountries();
 
+  console.log(countrydata);
   const onHandleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
@@ -19,7 +21,7 @@ const Apartment = () => {
     });
   };
   const onCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setShortName(shortName)
+    setShortName(e.target.value);
     setHasCountry(true);
   };
 
@@ -27,6 +29,20 @@ const Apartment = () => {
     setData({
       ...data,
       state: e.target.value,
+    });
+    setState(e.target.value);
+  };
+
+  const onChangeReligion = (e: ChangeEvent<HTMLSelectElement>) => {
+    setData({
+      ...data,
+      religion: e.target.value,
+    });
+  };
+  const onChangeEmploymentStatus = (e: ChangeEvent<HTMLSelectElement>) => {
+    setData({
+      ...data,
+      employment_status: e.target.value,
     });
   };
 
@@ -40,6 +56,13 @@ const Apartment = () => {
     const states = countrydata.getStatesByShort(shortName);
     setStates(states);
   }, [shortName]);
+
+  useEffect(() => {
+    /** @ts-ignore */
+    const cities = countrydata.getCities(shortName, data.state);
+    console.log(cities);
+    /** @ts-ignore */
+  }, [shortName, data.state]);
 
   return (
     <section>
@@ -81,7 +104,7 @@ const Apartment = () => {
                   value="Female"
                   onChange={onHandleInputChange}
                 />{" "}
-                Both Male and Female
+                M & F
               </span>
             </div>
           </div>
@@ -119,11 +142,13 @@ const Apartment = () => {
             <select onChange={onStateChange}>
               <option>Select city</option>
 
+              {/** @ts-ignore */}
               {shortName &&
-                countrydata.getStatesByShort(shortName).map((state: any) => {
+                state &&
+                countrydata.getCities(shortName, state).map((city: any) => {
                   return (
-                    <option value={state} key={state}>
-                      {state}
+                    <option value={city} key={city}>
+                      {city}
                     </option>
                   );
                 })}
@@ -132,7 +157,7 @@ const Apartment = () => {
 
           <div className="input__wrapper">
             <label>Employment status</label>
-            <select onChange={onStateChange}>
+            <select onChange={onChangeEmploymentStatus}>
               <option>Select status</option>
               {/** @ts-ignore */}
               {["Employed", "Self Employed", "Student", "Not Employed"].map(
@@ -165,7 +190,7 @@ const Apartment = () => {
           </div>
           <div className="input__wrapper">
             <label>What religion should your flatmmate be?</label>
-            <select onChange={onStateChange}>
+            <select onChange={onChangeReligion}>
               <option>Select religion</option>
               {/** @ts-ignore */}
               {[
@@ -186,7 +211,9 @@ const Apartment = () => {
               })}
             </select>
           </div>
-          <button onClick={onSubmit}>Update your profile</button>
+          <button onClick={onSubmit} className="action__button">
+            Upload apartment
+          </button>
         </form>
       </section>
     </section>
