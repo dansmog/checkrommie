@@ -101,3 +101,10 @@ select::-ms-expand {
 .profile__container .header p {
   font-size: 14px;
 }
+
+@media screen and (max-width:460px){
+  .gender__container input {
+    width: 12px;
+    height: 12px;
+  }
+}
