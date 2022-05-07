@@ -8,21 +8,29 @@ import ResetPassword from "../containers/Auth/ResetPassword";
 import Signup from "../containers/Auth/Signup";
 import LandingPage from "../containers/LandingPage";
 import Profile from "../containers/Profile";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute, { PublicRoute } from "./ProtectedRoute";
 
 const AppRoutes = () => {
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const user = window.localStorage.getItem("checkrommie__user") as string;
-    setUser(user);
-  }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/email-confirmation/confirm"
           element={<ConfirmAccount />}
@@ -32,7 +40,7 @@ const AppRoutes = () => {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
@@ -40,7 +48,7 @@ const AppRoutes = () => {
         <Route
           path="/apartment"
           element={
-            <ProtectedRoute user={user}>
+            <ProtectedRoute>
               <Apartment />
             </ProtectedRoute>
           }

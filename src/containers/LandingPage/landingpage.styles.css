@@ -59,8 +59,8 @@
   padding: 24px 0px;
   margin-bottom: 82px;
 }
-.active{
-  color:var(--main) !important;
+.active {
+  color: var(--main) !important;
 }
 .navigation__left a {
   color: #202028;
@@ -285,6 +285,26 @@ footer p {
   .show-sm {
     display: flex !important;
   }
+  .features__list .feature__card h6,
+  .benefits__list .benefit__card h6 {
+    font-size: 18px;
+  }
+  .features__list .feature__card p,
+  .benefits__list .benefit__card p {
+    font-size: 14px;
+  }
+  .benefit__card,
+  .feature__card {
+    margin-bottom: 24px;
+  }
+  .benefit__card svg,
+  .feature__card svg {
+    width: 32px;
+    height: 32px;
+  }
+  footer {
+    margin-top:50px;
+  }
 }
 
 @media screen and (max-width: 360px) {
@@ -296,6 +316,6 @@ footer p {
   }
   .masthead .action--btn span {
     padding-left: 0;
-    padding-top:8px;
+    padding-top: 8px;
   }
 }
