@@ -1,0 +1,21 @@
+.tags {
+  padding:4px 8px;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  margin-bottom:8px;
+  cursor: pointer;
+  font-family: var(--regular);
+  margin-right: 8px;
+}
+
+.selected {
+  background-color: var(--main);
+  color: #fff;
+  font-family: var(--medium);
+}
+
+.qualities__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}

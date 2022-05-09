@@ -74,7 +74,7 @@ const Masthead = () => (
             <span>flatmate</span>
           </h1>
           <p>
-            With checkroomie, you can now find flatmates and roommates that you
+            With checkrommie, you can now find flatmates and roommates that you
             can call family, we make it easier to find your new roommates and
             flatmates
           </p>
@@ -232,7 +232,7 @@ const Footer = () => {
           <div className="col-sm-6">
             <h1>Find your new roommates and flatmates today!</h1>
             <p>
-              With checkroomie, you can now find flatmates and roommates that
+              With checkrommie, you can now find flatmates and roommates that
               you can call family, we make it easier to find your new roommates
               and flatmates
             </p>

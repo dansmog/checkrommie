@@ -9,7 +9,6 @@ const Apartment = () => {
   const [hasCountry, setHasCountry] = useState(false);
   const [shortName, setShortName] = useState("");
   const [hasState, setHasState] = useState(false);
-  const [states, setStates] = useState([]);
   const [state, setState] = useState("");
   const countries = countrydata.getCountries();
 
@@ -20,6 +19,13 @@ const Apartment = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const onCityChange = (e:ChangeEvent<HTMLSelectElement>) => {
+    setData({
+      ...data,
+      city: e.target.value
+    })
+  }
+
   const onCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setShortName(e.target.value);
     setHasCountry(true);
@@ -51,18 +57,7 @@ const Apartment = () => {
     console.log(data);
   };
 
-  useEffect(() => {
-    console.log(countrydata.getStatesByShort(shortName));
-    const states = countrydata.getStatesByShort(shortName);
-    setStates(states);
-  }, [shortName]);
 
-  useEffect(() => {
-    /** @ts-ignore */
-    const cities = countrydata.getCities(shortName, data.state);
-    console.log(cities);
-    /** @ts-ignore */
-  }, [shortName, data.state]);
 
   return (
     <section>
@@ -139,13 +134,12 @@ const Apartment = () => {
 
           <div className="input__wrapper">
             <label>Which city is your apartment in?</label>
-            <select onChange={onStateChange}>
+            <select onChange={onCityChange}>
               <option>Select city</option>
 
-              {/** @ts-ignore */}
               {shortName &&
                 state &&
-                countrydata.getCities(shortName, state).map((city: any) => {
+                countrydata.getCities(shortName, state).map((city: string) => {
                   return (
                     <option value={city} key={city}>
                       {city}

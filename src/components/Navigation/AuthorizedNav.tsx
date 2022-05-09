@@ -9,6 +9,11 @@ import Menu from "../../assets/images/Menu";
 const AuthorizedNav = () => {
   const [user, setUser] = useState("");
 
+  const logout = () => {
+    window.localStorage.removeItem("checkrommie__user");
+    window.location.reload();
+  }
+
   useEffect(() => {
     /** @ts-ignore */
     const user = JSON.parse(window.localStorage.getItem("checkrommie__user"));
@@ -39,7 +44,7 @@ const AuthorizedNav = () => {
                 <NavLink to="/profile" className="hidden-sm">
                   My Profile
                 </NavLink>
-                <Link to="/login" className="hidden-sm">
+                <Link to="/login" className="hidden-sm" onClick={logout}>
                   Log out
                 </Link>
                 <span className="hidden-sm">

@@ -34,6 +34,9 @@ const ConfirmAccount = () => {
         toast.error(err.response.data.message);
         setError(err.response.data.message);
       }
+      if(err.response.data.message === "Email already confirmed"){
+        setIsSuccess(true)
+      }
     }
   };
 
@@ -45,16 +48,23 @@ const ConfirmAccount = () => {
       </div>
       <div className="right__section">
         <div className="form__wrapper">
-          <div className="form__wrapperHeader">
-            <h1>Confirm your account</h1>
-            <span>Please hold on while we verify your account</span>
-          </div>
-          <div className="input__wrapper loader__container">
-            {isLoading && <Spinner />}
-          </div>
+          {isLoading && (
+            <>
+              <div className="form__wrapperHeader">
+                <h1>Confirm your account</h1>
+                <span>Please hold on while we verify your account</span>
+              </div>
+              <div className="input__wrapper loader__container">
+                <div className="wrapper">
+                  <Spinner />
+                  <span>Please wait, verifying acccount...</span>
+                </div>
+              </div>
+            </>
+          )}
           {isSuccess && (
             <div className="success__container">
-              <img src={success} alt="" style={{width: 100, height: 100}}/>
+              <img src={success} alt="" style={{ width: 100, height: 100 }} />
               <p>Your account has been successfully confirmed</p>
               <Link to="/login">Click here to login</Link>
             </div>
