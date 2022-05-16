@@ -1,0 +1,13 @@
+.fullscreen__loader {
+  position: fixed;
+  top:0;
+  width:100vw;
+  height:100vh;
+  background-color: rgba(0,0,0,0.6);
+  color:#fff;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

@@ -1,16 +1,25 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import FullScreenLoader from "../../components/FullscreenLoader";
+
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 
 import "../Profile/profile.styles.css";
+import httpRequestHelper from "../utils/httpRequest.helper";
 const countrydata = require("countrycitystatejson");
 
 const Apartment = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<any>({});
   const [hasCountry, setHasCountry] = useState(false);
   const [shortName, setShortName] = useState("");
   const [hasState, setHasState] = useState(false);
   const [state, setState] = useState("");
   const countries = countrydata.getCountries();
+  const [files, setFiles] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   console.log(countrydata);
   const onHandleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,12 +28,12 @@ const Apartment = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const onCityChange = (e:ChangeEvent<HTMLSelectElement>) => {
+  const onCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setData({
       ...data,
-      city: e.target.value
-    })
-  }
+      city: e.target.value,
+    });
+  };
 
   const onCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setShortName(e.target.value);
@@ -51,18 +60,86 @@ const Apartment = () => {
       employment_status: e.target.value,
     });
   };
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles);
+    setFiles(
+      acceptedFiles.map((file: any) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      )
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log("i am here");
+    setLoading(true);
+    const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
+      .user.id;
+    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    httpRequestHelper
+      .get(`/apartments/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        const newData = data.data;
+        console.log({data})
+        setData(newData);
+        setLoading(false);
+        setSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 6,
+  });
+
+  const onRemovePreviewImage = (preview: string) => {
+    console.log(preview);
+  };
+
+  const thumbs = files.map((file) => (
+    /** @ts-ignore */
+    <div className="thumb__wrapper" key={file.name}>
+      <div className="thumb">
+        <div
+          /** @ts-ignore */
+          onClick={() => onRemovePreviewImage(file.preview)}
+          className="cancel"
+        >
+          x
+        </div>
+        <img
+          /** @ts-ignore */
+          src={file.preview}
+          className="img"
+          /** @ts-ignore */
+          onLoad={() => {
+            /** @ts-ignore */
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
 
   const onSubmit = (e: any) => {
     e.preventDefault();
     console.log(data);
   };
 
-
-
   return (
     <section>
+      {loading && <FullScreenLoader />}
       <AuthorizedNav />
-      <section className="profile__container d-flex ">
+      <section className="profile__container apartment d-flex ">
         <div className="header">
           <h1>Your aparment details</h1>
           <p>
@@ -72,12 +149,27 @@ const Apartment = () => {
         </div>
         <form>
           <div className="input__wrapper">
+            <div {...getRootProps({ className: "dropzone" })}>
+              <input {...getInputProps()} />
+              <p>
+                Drag 'n' drop your apartment images here, or click to select
+                files
+              </p>
+              <em>
+                (6 files are the maximum number of files you can drop here)
+              </em>
+            </div>
+          </div>
+          {files.length !== 0 && (
+            <div className="apartment__photoWrapper">{thumbs}</div>
+          )}
+          <div className="input__wrapper">
             <label>What gender are you looking for?</label>
             <div className="gender__container">
               <span>
                 <input
                   type="radio"
-                  name="gender"
+                  name="preferred_gender"
                   value="Male"
                   onChange={onHandleInputChange}
                 />{" "}
@@ -86,7 +178,7 @@ const Apartment = () => {
               <span>
                 <input
                   type="radio"
-                  name="gender"
+                  name="preferred_gender"
                   value="Female"
                   onChange={onHandleInputChange}
                 />{" "}
@@ -150,7 +242,12 @@ const Apartment = () => {
           </div>
 
           <div className="input__wrapper">
-            <label>Employment status</label>
+            <label>Your house address</label>
+            <input type="text" name="address" onChange={onHandleInputChange} />
+          </div>
+
+          <div className="input__wrapper">
+            <label>What employment status are you looking for?</label>
             <select onChange={onChangeEmploymentStatus}>
               <option>Select status</option>
               {/** @ts-ignore */}
@@ -165,7 +262,10 @@ const Apartment = () => {
               )}
             </select>
           </div>
-
+          <div className="input__wrapper">
+            <label>How much is your annual rent</label>
+            <input type="text" name="rent_fee" onChange={onHandleInputChange} />
+          </div>
           <div className="input__wrapper">
             <label>How many bedroom</label>
             <input
@@ -187,19 +287,14 @@ const Apartment = () => {
             <select onChange={onChangeReligion}>
               <option>Select religion</option>
               {/** @ts-ignore */}
-              {[
-                "Christian",
-                "Muslim",
-                "Atheist",
-                "Buhdist",
-                "Hinduism",
-                "Judaism",
-                "Shinto",
-                "Gnosticism",
-              ].map((status: string) => {
+              {["christian", "islam", "other"].map((religion: string) => {
                 return (
-                  <option value={status} key={status}>
-                    {status}
+                  <option
+                    value={religion}
+                    key={religion}
+                    selected={religion === data?.preferred_religion}
+                  >
+                    {religion}
                   </option>
                 );
               })}

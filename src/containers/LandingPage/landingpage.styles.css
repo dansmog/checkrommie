@@ -36,7 +36,7 @@
   margin-top: var(--size-48);
 }
 
-.masthead .action--btn button {
+.masthead .action--btn a {
   padding: 16px 18px;
   border-radius: 4px;
   background-color: var(--main);
@@ -44,6 +44,7 @@
   font-size: 14px;
   border: none;
   font-family: var(--bold);
+  text-decoration: none;
 }
 
 .masthead .action--btn span {
@@ -81,7 +82,7 @@
   cursor: pointer;
   text-decoration: none;
 }
-.navigation .navigation__right button {
+.navigation .navigation__right .getStarted {
   background-color: var(--main);
   color: #fff;
   font-size: 14px;

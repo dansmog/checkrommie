@@ -7,27 +7,22 @@ const qualities = [
     selected: false,
     title: "Feminism",
   },
-
   {
-    selected: true,
+    selected: false,
     title: "Partying",
   },
-
   {
     selected: false,
     title: "Drinking",
   },
-
   {
     selected: false,
     title: "Dancing",
   },
-
   {
     selected: false,
     title: "Cooking",
   },
-
   {
     selected: false,
     title: "Music",

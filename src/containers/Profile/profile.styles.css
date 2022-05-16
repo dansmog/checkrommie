@@ -96,6 +96,92 @@ select::-ms-expand {
   font-size: 14px;
 }
 
+.profile__photo {
+  width: 200px;
+  height:200px;
+  border-radius:100%;
+  border: 2px dashed #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+.profile__photo p {
+  font-size: 16px;
+  font-family: var(--medium);
+  margin:0;
+}
+.thumb {
+  position: relative;
+  width:200px;
+  height:200px;
+  display: flex;
+}
+.apartment .thumb {
+  width: 100px;
+  height:100px;
+}
+.thumb img {
+  width:200px;
+  height:200px;
+  border-radius:100%;
+  object-fit: cover;
+}
+.apartment .thumb img {
+  border-radius: 0 !important;
+  width: 100px;
+  height: 100px;
+}
+.apartment__photoWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.thumb .cancel {
+  width:24px;
+  height:24px;
+  background-color: rgb(174, 33, 33);
+  color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--bold);
+  border-radius: 100%;
+  position: absolute;
+  top:20px;
+  right: 20px;
+  cursor: pointer;
+}
+.apartment .thumb .cancel {
+  right:-8px;
+  top:-10px;
+}
+.thumb__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom:32px;
+}
+.thumb__wrapper button {
+  background-color:var(--main);
+  border-radius: 4px;
+  border:none;
+  margin-top: 8px;
+  margin-bottom:32px;
+  width:100px;
+  height:32px;
+  font-size:12px;
+  font-family: var(--medium);
+  color:#fff;
+}
+.dropzone {
+  width:100%;
+  border: 2px dashed #eeeeee;
+  padding: 20px;
+  font-family: var(--medium);
+}
 @media screen and (max-width: 460px) {
   .gender__container input {
     width: 12px;

@@ -1,0 +1,65 @@
+.rommie__card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+  cursor: pointer;
+}
+
+.rommie__card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.rommie__card .rommie--details img {
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  object-fit: cover;
+}
+
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.rommie--details {
+  display: flex;
+  align-items: center;
+}
+.rommie--details h6,
+.rommie--details span {
+  margin: 0;
+}
+
+.rommie--details h6,
+.house--details h6 {
+  font-family: var(--bold);
+}
+.rommie--details span,
+.house--details span {
+  font-family: var(--medium);
+  margin:0;
+  font-size: 14px;
+}
+.house--details {
+  display: flex;
+  flex-direction: column;
+}
+.house--details span {
+  text-align: right;
+
+}
+
+.rommie--detailsUser img {
+  margin-right: 16px;
+}
+
+.rommie__card svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}

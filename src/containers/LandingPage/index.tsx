@@ -46,11 +46,15 @@ const Navigation = () => {
                 </NavLink>
               </div>
               <div className="navigation__right">
-                <NavLink to="/explore" className="hidden-lg show-sm">Explore</NavLink>
+                <NavLink to="/explore" className="hidden-lg show-sm">
+                  Explore
+                </NavLink>
                 <Link to="/login" className="hidden-sm">
                   Log in
                 </Link>
-                <button className="hidden-sm">Get started</button>
+                <Link to="/explore" className="hidden-sm getStarted">
+                  Get started
+                </Link>
                 <span className="hidden-lg show-sm">
                   <Menu />
                 </span>
@@ -70,16 +74,15 @@ const Masthead = () => (
       <div className="row">
         <div className="col-sm-6">
           <h1>
-            Share your brilliant ideas and moments, with your new{" "}
-            <span>flatmate</span>
+            Searching for a perfect roommate or flatmate just got easier and
+            safer
           </h1>
           <p>
-            With checkrommie, you can now find flatmates and roommates that you
-            can call family, we make it easier to find your new roommates and
-            flatmates
+            With checkrommie, we guarantee that you can find a roommate or
+            flatmate that is perfect for you.
           </p>
           <div className="action--btn">
-            <button>Search for a flatmate</button>
+            <Link to="/explore">Search for a flatmate</Link>
             <span>Trust by 12,455 people</span>
           </div>
         </div>
@@ -98,10 +101,7 @@ const Features = () => {
         <div className="row">
           <div className="w-50 m-auto align-self-center text-center">
             <span className="tags">How it works</span>
-            <h1>
-              We understand how important it is to have someone to share with
-            </h1>
-            <p>See how we make finding this person a smoothless experience</p>
+            <h1>Follow our easy 3-step process to find your perfect match</h1>
           </div>
         </div>
         <div className="features__list">
@@ -111,29 +111,26 @@ const Features = () => {
                 <User />
                 <h6>Create an account</h6>
                 <p>
-                  You don’t just find roommates or flatmates, you get to enjoy
-                  so much benefits using checkroommie
+                  Set up an account with your email and your verify your
+                  account.
                 </p>
               </div>
             </div>
             <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="feature__card">
                 <Wallet />
-                <h6>Fill up your profile and flatmate qualities</h6>
+                <h6>Fill up your profile and roommate qualities</h6>
                 <p>
-                  Save for your rents, save for house maintenance, save for
-                  foods etc, you can save for anything you need in the house
+                  complete your profile by describing yourself and what
+                  qaulities you would like your roommates to have.
                 </p>
               </div>
             </div>
             <div className="col-12 col-sm-4 col-md-6 col-lg-4">
               <div className="feature__card">
                 <People />
-                <h6>Get flatmates results</h6>
-                <p>
-                  You and your flatmates can now easily split your rents without
-                  no fuss, and issues of delayed payemtns
-                </p>
+                <h6>Get roommates results</h6>
+                <p>choose your perfect roommate from the result gotten</p>
               </div>
             </div>
           </div>
@@ -150,7 +147,7 @@ const Benefits = () => {
         <div className="row">
           <div className="w-50 m-auto align-self-center text-center">
             <Star />
-            <h1>What you get using checkroommie</h1>
+            <h1>You can do more with checkrommie</h1>
             <p>You don't just find roommates or flatmates</p>
           </div>
         </div>
@@ -181,39 +178,8 @@ const Benefits = () => {
                 <SplitPayment />
                 <h6>Split rent payments</h6>
                 <p>
-                  You and your flatmates can now easily split your rents without
-                  no fuss, and issues of delayed payemtns
-                </p>
-              </div>
-            </div>
-
-            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
-              <div className="benefit__card">
-                <Search />
-                <h6>Fast and efficient search</h6>
-                <p>
-                  You don’t just find roommates or flatmates, you get to enjoy
-                  so much benefits using checkroommie
-                </p>
-              </div>
-            </div>
-            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
-              <div className="benefit__card">
-                <Wallet />
-                <h6>Group rent savings</h6>
-                <p>
-                  Save for your rents, save for house maintenance, save for
-                  foods etc, you can save for anything you need in the house
-                </p>
-              </div>
-            </div>
-            <div className="col-12 col-sm-4 col-md-6 col-lg-4">
-              <div className="benefit__card">
-                <SplitPayment />
-                <h6>Split rent payments</h6>
-                <p>
-                  You and your flatmates can now easily split your rents without
-                  no fuss, and issues of delayed payemtns
+                  You and your flatmates can easily split your rents seamlessly
+                  and with no issues of delayed payments.
                 </p>
               </div>
             </div>
@@ -224,7 +190,7 @@ const Benefits = () => {
   );
 };
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer>
       <div className="container">
@@ -232,9 +198,8 @@ const Footer = () => {
           <div className="col-sm-6">
             <h1>Find your new roommates and flatmates today!</h1>
             <p>
-              With checkrommie, you can now find flatmates and roommates that
-              you can call family, we make it easier to find your new roommates
-              and flatmates
+              With checkrommie, we guarantee that you can find a roommate or
+              flatmate that is perfect for you.
             </p>
             <Link to="/explore" className="footerBtn">
               Get started
