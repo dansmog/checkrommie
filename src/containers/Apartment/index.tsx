@@ -3,6 +3,8 @@ import { useDropzone } from "react-dropzone";
 import FullScreenLoader from "../../components/FullscreenLoader";
 
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
+import qualities from "../../components/Tags/qaulities";
+import Tags from "../../components/Tags";
 
 import "../Profile/profile.styles.css";
 import httpRequestHelper from "../utils/httpRequest.helper";
@@ -14,6 +16,7 @@ const Apartment = () => {
   const [shortName, setShortName] = useState("");
   const [hasState, setHasState] = useState(false);
   const [state, setState] = useState("");
+  const [personalities, setPersonality] = useState([...qualities]);
   const countries = countrydata.getCountries();
   const [files, setFiles] = useState([]);
 
@@ -37,6 +40,11 @@ const Apartment = () => {
 
   const onCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setShortName(e.target.value);
+    const country = countrydata.getCountryByShort(e.target.value).name;
+    setData({
+      ...data,
+      country,
+    });
     setHasCountry(true);
   };
 
@@ -71,30 +79,28 @@ const Apartment = () => {
     );
   }, []);
 
-  useEffect(() => {
-    console.log("i am here");
-    setLoading(true);
-    const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
-      .user.id;
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
-    httpRequestHelper
-      .get(`/apartments/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        const newData = data.data;
-        console.log({data})
-        setData(newData);
-        setLoading(false);
-        setSuccess(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  }, []);
+  const onChangePersonality = (title: string) => {
+    const newPersonality = personalities.map((personality) => {
+      if (personality.title === title) {
+        return {
+          selected: !personality.selected,
+          title: personality.title,
+        };
+      }
+      return personality;
+    });
+    setPersonality(newPersonality);
+    let qualities: string[] = [];
+    newPersonality.forEach((element) => {
+      if (element.selected === true) {
+        qualities.push(element.title);
+      }
+    });
+    setData({
+      ...data,
+      qualities,
+    });
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -133,6 +139,24 @@ const Apartment = () => {
   const onSubmit = (e: any) => {
     e.preventDefault();
     console.log(data);
+    const formData = new FormData();
+    
+    // setLoading(true);
+    // const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    // httpRequestHelper
+    //   .post(`/apartments`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then(({ data }) => {
+    //     setLoading(false);
+    //     setSuccess(true);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setLoading(false);
+    //   });
   };
 
   return (
@@ -299,6 +323,20 @@ const Apartment = () => {
                 );
               })}
             </select>
+          </div>
+          <div className="input__wrapper">
+            <label>What are you qualities</label>
+            <div className="qualities__wrapper">
+              {personalities.map((personality) => {
+                return (
+                  <Tags
+                    title={personality.title}
+                    isSelected={personality.selected}
+                    onClick={onChangePersonality}
+                  />
+                );
+              })}
+            </div>
           </div>
           <button onClick={onSubmit} className="action__button">
             Upload apartment
