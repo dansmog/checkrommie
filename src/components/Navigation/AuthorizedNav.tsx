@@ -12,7 +12,7 @@ const AuthorizedNav = () => {
   const logout = () => {
     window.localStorage.removeItem("checkrommie__user");
     window.location.reload();
-  }
+  };
 
   useEffect(() => {
     /** @ts-ignore */

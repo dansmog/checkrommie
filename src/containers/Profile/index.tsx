@@ -156,7 +156,6 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    console.log("i am here");
     setLoading(true);
     const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
       .user.id;
@@ -395,6 +394,16 @@ const Profile = () => {
                 type="text"
                 name="address"
                 value={data?.address}
+                onChange={onHandleInputChange}
+              />
+            </div>
+
+            <div className="input__wrapper">
+              <label>Your Phone Number</label>
+              <input
+                type="text"
+                name="phone_number"
+                value={data?.phone_number}
                 onChange={onHandleInputChange}
               />
             </div>
