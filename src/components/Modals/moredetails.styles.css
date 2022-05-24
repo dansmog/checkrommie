@@ -1,0 +1,132 @@
+.moredetails {
+  max-width: 1062px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 88px;
+  padding-bottom: 56px;
+  line-height: 1;
+}
+
+.moredetails h4 {
+  font-family: var(--medium);
+  font-size: 20px;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.moredetails h6 {
+  font-family: var(--bold);
+  font-size: 24px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.moredetails p {
+  font-family: var(--regular);
+  font-size: 20px;
+  margin-bottom: 0;
+  max-width: 894px;
+}
+
+.apartment-owner .left,
+.apartment-owner .right {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.filler {
+  width: 1px;
+  flex: 1;
+  max-width: 86px;
+}
+
+.apartment-owner .contactBtn {
+  display: block;
+  background-color: var(--main);
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  font-family: var(--bold);
+  padding: 20px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.apartment-owner p {
+  font-family: var(--regular);
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.apartment-owner__avatar {
+  width: var(--size-64);
+  height: var(--size-64);
+  border-radius: 50%;
+}
+
+.apartment__image-carousel {
+  margin-top: 32px;
+  margin-bottom: 42px;
+}
+
+.apartment-details__qualities {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.apartment-details__quality {
+  font-family: var(--medium);
+  font-size: 14px;
+  padding: 4px 10px;
+  border: 1px solid var(--main);
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  /* more details modal */
+  .moredetails h4 {
+    font-size: 14px;
+  }
+
+  .moredetails h6 {
+    font-size: 16px;
+  }
+
+  .moredetails p {
+    font-size: 14px;
+  }
+  .apartment-owner .contactBtn {
+    font-size: 14px;
+    padding:12px;
+  }
+  .apartment-owner h6 {
+    font-size:16px;
+  }
+  .apartment-owner__avatar {
+    width:32px;
+    height: 32px;
+  }
+  .user-title {
+    margin-bottom: 32px;
+  }
+  .swiper-button-prev, .swiper-button-next {
+    width:32px !important;
+    height:32px !important;
+  }
+  .swiper-button-prev:after, .swiper-rtl, .swiper-button-next:after {
+    font-size:14px;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .moredetails {
+    padding-top:50px;
+  }
+  .rodal-dialog {
+    border-radius: 10px !important;
+  }
+}

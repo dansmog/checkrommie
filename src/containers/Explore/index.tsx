@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import RommieCard from "../../components/Card";
 import FullScreenLoader from "../../components/FullscreenLoader";
+import ModalWrapper from "../../components/Modal";
 import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 import { Footer } from "../LandingPage";
@@ -10,87 +11,15 @@ import httpRequestHelper from "../utils/httpRequest.helper";
 import "./explore.styles.css";
 const countrydata = require("countrycitystatejson");
 
-const fakedata = [
-  {
-    id: 1,
-    heading: "2 Bed Room Flat",
-    rent_fee: 230000,
-    preferred_religion: "christian",
-    user: {
-      id: 4,
-      name: "John Doe",
-      status: "active",
-      gender: "male",
-      religion: "islam",
-      avatar:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2960&q=80",
-      employment_status: "employed",
-    },
-    apartment_img:
-      "https://images.unsplash.com/photo-1506188232657-23c9c893ac2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-  },
-  {
-    id: 1,
-    heading: "2 Bed Room Flat",
-    rent_fee: 230000,
-    preferred_religion: "christian",
-    user: {
-      id: 4,
-      name: "Daniel juwon",
-      status: "active",
-      gender: "male",
-      religion: "islam",
-      avatar:
-        "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-      employment_status: "employed",
-    },
-    apartment_img:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-  {
-    id: 1,
-    heading: "2 Bed Room Flat",
-    rent_fee: 230000,
-    preferred_religion: "christian",
-    user: {
-      id: 4,
-      name: "John Doe",
-      status: "active",
-      gender: "male",
-      religion: "islam",
-      avatar:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2960&q=80",
-      employment_status: "employed",
-    },
-    apartment_img:
-      "https://images.unsplash.com/photo-1506188232657-23c9c893ac2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-  },
-  {
-    id: 1,
-    heading: "2 Bed Room Flat",
-    rent_fee: 230000,
-    preferred_religion: "christian",
-    user: {
-      id: 4,
-      name: "Daniel juwon",
-      status: "active",
-      gender: "male",
-      religion: "islam",
-      avatar:
-        "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-      employment_status: "employed",
-    },
-    apartment_img:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-  },
-];
 
 const Explore = () => {
   const [data, setData] = useState([]);
   const [userRequest, setUserRequest] = useState({});
+  const [filter, setFilter] = useState({});
   const countries = countrydata.getCountries();
   const [shortName, setShortName] = useState("");
   const [state, setState] = useState("");
+  const [apartmentId, setApartmentId] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -121,10 +50,18 @@ const Explore = () => {
     setState(e.target.value);
   };
 
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    setFilter({ ...userRequest });
+  };
+
   useEffect(() => {
     setLoading(true);
     httpRequestHelper
-      .get(`/apartments`)
+      .get(`/apartments`, {
+        params: filter,
+      })
       .then(({ data }) => {
         setLoading(false);
         setSuccess(true);
@@ -135,11 +72,11 @@ const Explore = () => {
         setLoading(false);
         console.log(error);
       });
-  }, []);
+  }, [filter]);
 
   const onOpenDetailModal = (id: string) => {
+    setApartmentId(id);
     setShowModal(!showModal);
-
   };
 
   return (
@@ -157,7 +94,7 @@ const Explore = () => {
             </div>
             <div className="filter__wrapper mt-4">
               <div className="col-12">
-                <div className="row">
+                <div className="row g-3">
                   <div className="col-sm-3 col-lg-3">
                     <select onChange={onCountryChange}>
                       <option>select country</option>
@@ -186,7 +123,7 @@ const Explore = () => {
                     </select>
                   </div>
                   <div className="col-sm-3 col-lg-3">
-                    <select>
+                    <select onChange={onCityChange}>
                       <option>select city</option>
                       {shortName &&
                         state &&
@@ -233,7 +170,7 @@ const Explore = () => {
                 </div>
               </div>
             </div>
-            <button>Filter result</button>
+            <button onClick={onSubmit}>Filter result</button>
           </div>
         </div>
       </header>
@@ -246,6 +183,11 @@ const Explore = () => {
                 <h6>Total result: {data.length}</h6>
               </div>
               {console.log(data)}
+              <MoreDetailModal
+                open={showModal}
+                onCloseModal={() => setShowModal(false)}
+                id={apartmentId}
+              />
               {data.map((datum) => {
                 return (
                   <div
@@ -265,12 +207,6 @@ const Explore = () => {
           </div>
         </section>
       )}
-
-      {/* <MoreDetailModal
-        onCloseModal={() => setShowModal(false)}
-        open={showModal}
-      /> */}
-
       <Footer />
     </section>
   );

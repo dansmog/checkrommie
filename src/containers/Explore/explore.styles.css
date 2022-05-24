@@ -18,17 +18,25 @@
 }
 
 .rommie__list {
-  padding-top:50px
+  padding-top: 50px;
 }
 
 .explore__header button {
   background-color: var(--main);
-  width:305px;
-  margin-top:16px;
-  margin-left:16px;
+  width: 305px;
+  margin-top: 16px;
+  margin-left: 16px;
   padding: 16px;
-  border:none;
-  border-radius:8px;
+  border: none;
+  border-radius: 8px;
   color: #fff;
   font-family: var(--bold);
+}
+
+@media only screen and (max-width: 600px) {
+  /* filter on explore page */
+  .filter__wrapper,
+  .explore__header button {
+    display: none;
+  }
 }

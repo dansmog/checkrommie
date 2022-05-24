@@ -3,7 +3,6 @@ import { formatCurrency } from "../../utils/currencyFormatter";
 import "./rommieCard.styles.css";
 
 const RommieCard = ({ data, showDetail }: { data: any; showDetail: any }) => {
-  console.log(data);
   return (
     <div className="rommie__card" onClick={showDetail}>
       <img src={data.apartment_medias[0].url} alt="" />
