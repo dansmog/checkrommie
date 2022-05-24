@@ -119,6 +119,12 @@
   .swiper-button-prev:after, .swiper-rtl, .swiper-button-next:after {
     font-size:14px;
   }
+  .swiper-button-prev {
+    padding-left: 9px !important;
+  }
+  .swiper-button-next {
+    right: 9px !important;
+  }
 }
 
 
