@@ -1,6 +1,6 @@
-
 .rodal,
 .rodal-mask {
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -24,10 +24,12 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  padding: 0 !important;
 }
 .rodal-dialog {
   display: flex;
   margin: auto;
+  margin-top: 56px;
   height: auto !important;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -38,11 +40,32 @@
   font-size: 1rem;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-box-pack: center;
+  /* -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
+  justify-content: center; */
   position: relative !important;
-  width: 32em;
+  width: 100% !important;
   max-width: 100%;
+  min-height: calc(100vh - 56px);
+  border-radius: 50px 50px 0px 0px;
+  padding: 0 !important;
 }
 
+.modal__container {
+  position: relative;
+}
+
+.modal__container .close {
+  position: absolute;
+  top: -38px;
+  right: 36px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--overlay-light);
+  font-size: 14px;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
