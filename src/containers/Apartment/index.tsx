@@ -38,7 +38,7 @@ const Apartment = () => {
 
     if (Object.keys(data).length) {
       for (let key in data) {
-        if (typeof data[key] == "object" || typeof data[key] == "function") {
+        if (data[key] instanceof Array) {
           data[key].forEach((element: any, i: any) => {
             formData.append(`${key}[]`, element);
           });
@@ -172,9 +172,7 @@ const Apartment = () => {
     let method = "post";
     let url = "/apartments";
     let message = "Apartment created successfully";
-    let serverData = data;
     const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
-    const formData = addFormData({ ...data, medias: files });
 
     if (data) {
       setLoading(true);
@@ -182,8 +180,10 @@ const Apartment = () => {
         method = "patch";
         url = `/apartments/${apartmentId}`;
         message = "Apartment updated successfully";
-        serverData = formData;
       }
+      const serverData =
+        method === "patch" ? data : addFormData({ ...data, medias: files });
+
       try {
         const { data } = await httpRequestHelper({
           method: method,
