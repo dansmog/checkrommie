@@ -8,6 +8,7 @@ import qualities from "../Tags/qaulities";
 import { useEffect, useState } from "react";
 import httpRequestHelper from "../../containers/utils/httpRequest.helper";
 import FullScreenLoader from "../FullscreenLoader";
+import Spinner from "../../assets/images/spinner";
 
 // const testdata = {
 //   id: 1,
@@ -123,7 +124,7 @@ export default function MoreDetailModal({
 
   return (
     <ModalWrapper visible={open} onClose={onCloseModal}>
-      {loading && <FullScreenLoader />}
+      {loading && <Spinner />}
       {!loading && success && (
         <>
           <div className="moredetails">
@@ -194,13 +195,11 @@ export default function MoreDetailModal({
                     <div className="apartment-details__items col-12 col-sm-12 col-md-5 col-lg-5">
                       <h6>Qualities I want from a flatmate</h6>
                       <div className="apartment-details__qualities">
-                        {getQualitiesArray(data?.qualities).map(
-                          (quality, i) => (
-                            <div className="apartment-details__quality" key={i}>
-                              {quality}
-                            </div>
-                          )
-                        )}
+                        {data?.qualities.map((quality: any, i: any) => (
+                          <div className="apartment-details__quality" key={i}>
+                            {quality}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

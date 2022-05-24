@@ -14,17 +14,42 @@ const countrydata = require("countrycitystatejson");
 
 const Apartment = () => {
   const [data, setData] = useState<any>({});
-  const [hasCountry, setHasCountry] = useState(false);
   const [shortName, setShortName] = useState("");
   const [state, setState] = useState("");
   const [personalities, setPersonality] = useState([...qualities]);
   const countries = countrydata.getCountries();
   const [files, setFiles] = useState([]);
+  const [blobFile, setBlobFile] = useState([]);
   const [apartmentId, setApartmentId] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  const getShortName = (country: string) => {
+    const activeCountry = countries.find(
+      (countryObject: any) => countryObject.name === country
+    );
+    return activeCountry.shortName;
+  };
+
+  const addFormData = (data: any) => {
+    const formData = new FormData();
+
+    if (Object.keys(data).length) {
+      for (let key in data) {
+        if (typeof data[key] == "object" || typeof data[key] == "function") {
+          data[key].forEach((element: any, i: any) => {
+            formData.append(`${key}[]`, element);
+          });
+        } else {
+          formData.append(key, data[key]);
+        }
+      }
+    }
+
+    return formData;
+  };
 
   const onHandleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({
@@ -46,7 +71,6 @@ const Apartment = () => {
       ...data,
       country,
     });
-    setHasCountry(true);
   };
 
   const onStateChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -78,6 +102,7 @@ const Apartment = () => {
         })
       )
     );
+
     console.log(files);
   }, []);
 
@@ -110,7 +135,10 @@ const Apartment = () => {
   });
 
   const onRemovePreviewImage = (preview: string) => {
-    console.log(preview);
+    const filterRemovedFile = files.filter(
+      (file: any) => file.preview !== preview
+    );
+    setFiles(filterRemovedFile);
   };
 
   const thumbs = files.map((file) => (
@@ -141,12 +169,12 @@ const Apartment = () => {
   const onSubmit = async (e: any) => {
     e.preventDefault();
 
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
-    const payload = data;
-    const formData = new FormData();
     let method = "post";
     let url = "/apartments";
     let message = "Apartment created successfully";
+    let serverData = data;
+    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    const formData = addFormData({ ...data, medias: files });
 
     if (data) {
       setLoading(true);
@@ -154,12 +182,13 @@ const Apartment = () => {
         method = "patch";
         url = `/apartments/${apartmentId}`;
         message = "Apartment updated successfully";
+        serverData = formData;
       }
       try {
         const { data } = await httpRequestHelper({
           method: method,
           url: url,
-          data: payload,
+          data: serverData,
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -183,26 +212,27 @@ const Apartment = () => {
   };
 
   useEffect(() => {
-    const { apartment_id, has_apartment } = JSON.parse(
-      window.localStorage.getItem("checkrommie__user")!
-    ).user;
+    const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
+      .user.id;
+    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
 
-    if (has_apartment && apartment_id) {
-      setApartmentId(apartment_id);
+    if (userId) {
       setLoading(true);
-      const token = JSON.parse(
-        localStorage.getItem("checkrommie__user")!
-      ).token;
+
       httpRequestHelper
-        .get(`/apartments/${apartmentId}`, {
+        .get(`/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then(({ data }) => {
-          const newData = data.data;
-          console.log(newData);
-          setData(newData);
+          const apartmentData = data.data?.apartments[0];
+          if (apartmentData) {
+            setData(apartmentData);
+            setApartmentId(apartmentData?.id);
+            setShortName(getShortName(apartmentData?.country));
+            setState(apartmentData?.state);
+          }
           setLoading(false);
           setSuccess(true);
         })
@@ -320,7 +350,11 @@ const Apartment = () => {
                 {shortName &&
                   countrydata.getStatesByShort(shortName).map((state: any) => {
                     return (
-                      <option value={state} key={state}>
+                      <option
+                        value={state}
+                        key={state}
+                        selected={state === data?.state}
+                      >
                         {state}
                       </option>
                     );
@@ -339,7 +373,13 @@ const Apartment = () => {
                     .getCities(shortName, state)
                     .map((city: string) => {
                       return (
-                        <option value={city} key={city}>
+                        <option
+                          value={city}
+                          key={city}
+                          selected={
+                            city.toLowerCase() === data?.city?.toLowerCase()
+                          }
+                        >
                           {city}
                         </option>
                       );

@@ -22,6 +22,17 @@ const Profile = () => {
   const [error, setError] = useState(false);
   const [files, setFile] = useState([]);
 
+  const getShortName = (country: string) => {
+    if (country) {
+      const activeCountry = countries.find(
+        (countryObject: any) => countryObject.name === country
+      );
+      return activeCountry.shortName;
+    }
+
+    return "";
+  };
+
   const onHandleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
@@ -168,15 +179,17 @@ const Profile = () => {
       })
       .then(({ data }) => {
         const newData = data.data;
-        console.log(newData);
         setData(newData);
-        console.log("i am here in success");
+        console.log(newData);
+        setShortName(getShortName(newData?.country));
+        setState(newData?.state);
         setLoading(false);
         setSuccess(true);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        setError(true);
       });
   }, []);
 
@@ -380,7 +393,9 @@ const Profile = () => {
                         <option
                           value={city}
                           key={city}
-                          selected={city === data?.city}
+                          selected={
+                            city.toLowerCase() === data?.city?.toLowerCase()
+                          }
                         >
                           {city}
                         </option>
@@ -463,7 +478,7 @@ const Profile = () => {
                   return (
                     <Tags
                       title={personality.title}
-                      isSelected={personality.selected}
+                      isSelected={data?.qualities?.includes(personality.title)}
                       onClick={onChangePersonality}
                     />
                   );
