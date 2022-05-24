@@ -400,6 +400,16 @@ const Profile = () => {
             </div>
 
             <div className="input__wrapper">
+              <label>Your Phone number</label>
+              <input
+                type="text"
+                name="phone_number"
+                value={data?.phone}
+                onChange={onHandleInputChange}
+              />
+            </div>
+
+            <div className="input__wrapper">
               <label>Employment status</label>
               <select onChange={onChangeEmploymentStatus}>
                 <option>Select status</option>
