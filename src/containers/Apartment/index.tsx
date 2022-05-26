@@ -10,6 +10,9 @@ import Tags from "../../components/Tags";
 import "../Profile/profile.styles.css";
 import httpRequestHelper from "../utils/httpRequest.helper";
 import Spinner from "../../assets/images/spinner";
+import "./apartment.styles.css";
+import ImageSlider from "../../components/ImageSlider";
+
 const countrydata = require("countrycitystatejson");
 
 const Apartment = () => {
@@ -19,7 +22,6 @@ const Apartment = () => {
   const [personalities, setPersonality] = useState([...qualities]);
   const countries = countrydata.getCountries();
   const [files, setFiles] = useState([]);
-  const [blobFile, setBlobFile] = useState([]);
   const [apartmentId, setApartmentId] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -40,7 +42,7 @@ const Apartment = () => {
       for (let key in data) {
         if (data[key] instanceof Array) {
           data[key].forEach((element: any, i: any) => {
-            formData.append(`${key}[]`, element);
+            formData.append(key, data[key][i]);
           });
         } else {
           formData.append(key, data[key]);
@@ -166,34 +168,78 @@ const Apartment = () => {
     </div>
   ));
 
+  const imageThumbs = (images: any[]) =>
+    images.map((img) => (
+      <div className="thumb__wrapper" key={`${img.id} ${img.name}`}>
+        <div className="thumb">
+          <img src={img.url} className="img" alt={img.name} />
+        </div>
+      </div>
+    ));
+
   const onSubmit = async (e: any) => {
     e.preventDefault();
-
-    let method = "post";
-    let url = "/apartments";
-    let message = "Apartment created successfully";
+    let payload = data;
     const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
 
-    if (data) {
+    if (payload) {
       setLoading(true);
-      if (apartmentId) {
-        method = "patch";
-        url = `/apartments/${apartmentId}`;
-        message = "Apartment updated successfully";
-      }
-      const serverData =
-        method === "patch" ? data : addFormData({ ...data, medias: files });
 
       try {
-        const { data } = await httpRequestHelper({
-          method: method,
-          url: url,
-          data: serverData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        toast.success(message);
+        if (apartmentId) {
+          if (files.length !== 0) {
+            const payload = addFormData({
+              medias: files,
+              apartment_id: apartmentId,
+            });
+
+            const { data } = await httpRequestHelper.post(
+              `/apartments/images`,
+              payload,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            setFiles([]);
+            const apartment_medias = data.data.apartment_medias;
+            if (apartment_medias.length)
+              setData({
+                ...payload,
+                apartment_medias,
+              });
+            toast.success("Apartment images updated succesfully");
+          }
+
+          const { data } = await httpRequestHelper.patch(
+            `/apartments/${apartmentId}`,
+            payload,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          toast.success("Apartment updated successfully");
+        } else {
+          payload = addFormData({ ...payload, medias: files });
+          const { data } = await httpRequestHelper.post(
+            "/apartments",
+            payload,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          setData(data.data);
+          toast.success("Apartment created successfully");
+        }
+
         setLoading(false);
         setSuccess(true);
       } catch (err: any) {
@@ -258,12 +304,20 @@ const Apartment = () => {
         </div>
         {!loading && success && (
           <form>
+            {data?.apartment_medias?.length !== 0 && files?.length === 0 && (
+              <div>
+                <p className="image-label">Your Apartment Images</p>
+                <div className="apartment__imageSlider">
+                  <ImageSlider medias={data?.apartment_medias} />
+                </div>
+              </div>
+            )}
             <div className="input__wrapper">
               <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
                 <p>
-                  Drag 'n' drop your apartment images here, or click to select
-                  files
+                  Drag 'n' drop to change your apartment images here, or click
+                  to select files
                 </p>
                 <em>
                   (6 files are the maximum number of files you can drop here)

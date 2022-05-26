@@ -5,13 +5,19 @@ import Logo from "../../assets/images/rommie_logo_blue.png";
 
 import "./navigation.styles.css";
 import Menu from "../../assets/images/Menu";
+import MobileMenu from "../MobileMenu";
 
 const AuthorizedNav = () => {
   const [user, setUser] = useState("");
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const logout = () => {
     window.localStorage.removeItem("checkrommie__user");
     window.location.reload();
+  };
+
+  const toggleMobileMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
   };
 
   useEffect(() => {
@@ -51,12 +57,13 @@ const AuthorizedNav = () => {
                   <User />
                   {user && user}
                 </span>
-                <span className="hidden-lg show-sm">
+                <span className="hidden-lg show-sm" onClick={toggleMobileMenu}>
                   <Menu />
                 </span>
               </div>
             </div>
           </div>
+          <MobileMenu isOpen={showMobileMenu} onDismiss={toggleMobileMenu} />
         </div>
       </div>
     </section>
