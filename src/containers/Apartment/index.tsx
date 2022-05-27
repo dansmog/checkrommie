@@ -304,6 +304,7 @@ const Apartment = () => {
         </div>
         {!loading && success && (
           <form>
+      
             {data?.apartment_medias?.length !== 0 && files?.length === 0 && (
               <div>
                 <p className="image-label">Your Apartment Images</p>

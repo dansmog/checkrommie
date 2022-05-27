@@ -33,6 +33,13 @@
   font-family: var(--bold);
 }
 
+@media only screen and (max-width: 480px) {
+
+  .explore__header h1 {
+    font-size: 24px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   /* filter on explore page */
   .filter__wrapper,

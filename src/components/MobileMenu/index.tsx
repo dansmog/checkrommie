@@ -1,9 +1,9 @@
 import { MouseEventHandler, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { DialogOverlay, DialogContent } from "@reach/dialog";
 
 import "./mobilemenu.styles.css";
 import Close from "../../assets/images/close";
+import Rodal from "rodal";
 
 const MobileMenu = ({
   isOpen,
@@ -18,12 +18,13 @@ const MobileMenu = ({
   };
 
   return (
-    <DialogOverlay
-      className="mobile-nav hidden-lg show-sm"
-      isOpen={isOpen}
-      onDismiss={onDismiss}
+    <Rodal
+      className="mobile-nav"
+      visible={isOpen}
+      onClose={onDismiss}
+      showCloseButton={false}
     >
-      <DialogContent className="mobile-nav__container" aria-label="menu">
+      <div className="mobile-nav__container" aria-label="menu">
         <div className="container close-wrapper">
           <div className="row">
             <div className="mobile-nav__close">
@@ -39,8 +40,8 @@ const MobileMenu = ({
             Log out
           </Link>
         </div>
-      </DialogContent>
-    </DialogOverlay>
+      </div>
+    </Rodal>
   );
 };
 
