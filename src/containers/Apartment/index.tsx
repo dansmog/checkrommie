@@ -27,6 +27,7 @@ const Apartment = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [isCreatingApartment, setIsCreatingApartment] = useState(false);
 
   const getShortName = (country: string) => {
     const activeCountry = countries.find(
@@ -183,7 +184,7 @@ const Apartment = () => {
     const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
 
     if (payload) {
-      setLoading(true);
+      setIsCreatingApartment(true);
 
       try {
         if (apartmentId) {
@@ -240,10 +241,10 @@ const Apartment = () => {
           toast.success("Apartment created successfully");
         }
 
-        setLoading(false);
+        setIsCreatingApartment(false);
         setSuccess(true);
       } catch (err: any) {
-        setLoading(false);
+        setIsCreatingApartment(false);
         setError(true);
         console.log({ err });
         if (err.response.status === 400) {
@@ -304,15 +305,16 @@ const Apartment = () => {
         </div>
         {!loading && success && (
           <form>
-      
-            {data?.apartment_medias?.length !== 0 && files?.length === 0 && (
-              <div>
-                <p className="image-label">Your Apartment Images</p>
-                <div className="apartment__imageSlider">
-                  <ImageSlider medias={data?.apartment_medias} />
+            {data.length !== undefined &&
+              data?.apartment_medias?.length !== 0 ||
+              files?.length === 0 && (
+                <div>
+                  <p className="image-label">Your Apartment Images</p>
+                  <div className="apartment__imageSlider">
+                    <ImageSlider medias={data?.apartment_medias} />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             <div className="input__wrapper">
               <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
@@ -391,7 +393,7 @@ const Apartment = () => {
                       value={country.shortName}
                       selected={country.name === data?.country}
                     >
-                      {country.emoji} {country.name}
+                      {country.name}
                     </option>
                   );
                 })}
@@ -530,9 +532,9 @@ const Apartment = () => {
             <button
               onClick={onSubmit}
               className="action__button"
-              disabled={loading}
+              disabled={isCreatingApartment}
             >
-              {loading ? <Spinner /> : "Upload apartment"}
+              {isCreatingApartment ? <Spinner /> : "Upload apartment"}
             </button>
           </form>
         )}
