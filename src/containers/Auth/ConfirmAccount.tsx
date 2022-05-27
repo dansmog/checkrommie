@@ -11,7 +11,6 @@ import httpRequestHelper from "../utils/httpRequest.helper";
 const ConfirmAccount = () => {
   const [isLoading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     const qparams = window.location.search;
@@ -23,7 +22,7 @@ const ConfirmAccount = () => {
 
   const submitData = async (token: string) => {
     try {
-      const { data } = await httpRequestHelper.get(
+   await httpRequestHelper.get(
         `/email-confirmation/confirm?token=${token}`
       );
       setLoading(false);
@@ -32,7 +31,7 @@ const ConfirmAccount = () => {
       setLoading(false);
       if (err.response.status === 400) {
         toast.error(err.response.data.message);
-        setError(err.response.data.message);
+  
       }
       if(err.response.data.message === "Email already confirmed"){
         setIsSuccess(true)

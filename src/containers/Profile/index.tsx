@@ -19,7 +19,6 @@ const Profile = () => {
   const countries = countrydata.getCountries();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
   const [files, setFile] = useState([]);
 
   const getShortName = (country: string) => {
@@ -29,7 +28,6 @@ const Profile = () => {
       );
       return activeCountry.shortName;
     }
-
     return "";
   };
 
@@ -128,7 +126,7 @@ const Profile = () => {
     if (data) {
       setLoading(true);
       try {
-        const { data } = await httpRequestHelper.patch(`/users`, payload, {
+         await httpRequestHelper.patch(`/users`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -147,8 +145,6 @@ const Profile = () => {
         }
       } catch (err: any) {
         setLoading(false);
-        setError(true);
-        console.log({ err });
         if (
           err.response.status === 401 &&
           err.response.data.message === "Kindly confirm your email address"
@@ -189,7 +185,6 @@ const Profile = () => {
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setError(true);
       });
   }, []);
 
@@ -204,7 +199,7 @@ const Profile = () => {
     if (data) {
       setLoading(true);
       try {
-        const { data } = await httpRequestHelper.post(
+        await httpRequestHelper.post(
           `/users/upload/profile/image`,
           payload,
           {
@@ -225,7 +220,7 @@ const Profile = () => {
             });
           }
         }
-        setError(true);
+      
         console.log(err.response.data.message);
       }
     }
@@ -246,6 +241,7 @@ const Profile = () => {
             /** @ts-ignore */
             URL.revokeObjectURL(file.preview);
           }}
+          alt=""
         />
       </div>
       <button onClick={onSubmitPhoto}>Save photo</button>
@@ -259,6 +255,7 @@ const Profile = () => {
           /** @ts-ignore */
           src={avatar}
           className="img"
+          alt="avatar"
         />
       </div>
       <button onClick={onSubmitPhoto}>Save photo</button>

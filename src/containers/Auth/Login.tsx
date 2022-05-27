@@ -15,7 +15,7 @@ interface IData {
   password: string;
 }
 const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState<IData>({ email: "", password: "" });
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -41,7 +41,6 @@ const Login = () => {
       try {
         const { data } = await httpRequestHelper.post("/auth/login", payload);
         setLoading(false);
-        console.log({ data });
         toast.success("Log in successful");
         window.localStorage.setItem(
           "checkrommie__user",
@@ -54,19 +53,14 @@ const Login = () => {
         setLoading(false);
         if (
           err.response.status === 401 &&
-          err.response.data.message == "Kindly confirm your email address"
+          err.response.data.message === "Kindly confirm your email address"
         ) {
-          console.log("here now");
           toast.error(err.response.data.message);
           return setError(err.response.data.message);
         }
         if (err.response.status === 400) {
           return toast.error(err.response.data.message);
         }
-        console.log({
-          message: err.response.data.message,
-          status: err.response.status,
-        });
       }
     }
   };
@@ -76,7 +70,7 @@ const Login = () => {
       email: data.email,
     };
     try {
-      const { data } = await httpRequestHelper.post(
+       await httpRequestHelper.post(
         "/email-confirmation/resend-link",
         payload
       );

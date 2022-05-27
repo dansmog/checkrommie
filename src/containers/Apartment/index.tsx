@@ -26,7 +26,6 @@ const Apartment = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
   const [isCreatingApartment, setIsCreatingApartment] = useState(false);
 
   const getShortName = (country: string) => {
@@ -245,7 +244,6 @@ const Apartment = () => {
         setSuccess(true);
       } catch (err: any) {
         setIsCreatingApartment(false);
-        setError(true);
         console.log({ err });
         if (err.response.status === 400) {
           if (Array.isArray(err.response.data.message)) {

@@ -50,7 +50,7 @@ const Signup = () => {
     } else {
       setLoading(true);
       try {
-        const { data } = await httpRequestHelper.post("/auth/signup", payload);
+        await httpRequestHelper.post("/auth/signup", payload);
         toast.success("Account created successfully, please check your email");
         setLoading(false);
         setSuccess(true);

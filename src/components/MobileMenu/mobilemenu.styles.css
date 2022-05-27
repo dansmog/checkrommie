@@ -38,6 +38,7 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  font-family: var(--medium);
 }
 
 .mobile-nav__container a:active {

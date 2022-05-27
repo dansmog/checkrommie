@@ -10,6 +10,8 @@ import Search from "../../assets/images/search";
 import FooterImage from "../../assets/images/footerImage.png";
 import Menu from "../../assets/images/Menu";
 import Logo from "../../assets/images/rommie_logo_blue.png";
+import { useState } from "react";
+import MobileMenu from "../../components/MobileMenu";
 
 const LandingPage = () => {
   return (
@@ -25,6 +27,13 @@ const LandingPage = () => {
 export default LandingPage;
 
 const Navigation = () => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+
+  const toggleMobileMenu = () => {
+    console.log('working')
+    setShowMobileMenu(!showMobileMenu);
+  };
   return (
     <section className="navigation no-bg">
       <div className="container">
@@ -55,12 +64,13 @@ const Navigation = () => {
                 <Link to="/explore" className="hidden-sm getStarted">
                   Get started
                 </Link>
-                <span className="hidden-lg show-sm">
+                <span className="hidden-lg show-sm" onClick={toggleMobileMenu}>
                   <Menu />
                 </span>
               </div>
             </div>
           </div>
+          <MobileMenu isOpen={showMobileMenu} onDismiss={toggleMobileMenu} />
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import RommieCard from "../../components/Card";
 import FullScreenLoader from "../../components/FullscreenLoader";
-import ModalWrapper from "../../components/Modal";
 import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 import { Footer } from "../LandingPage";
@@ -23,7 +22,6 @@ const Explore = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
 

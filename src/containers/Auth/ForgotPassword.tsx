@@ -3,7 +3,6 @@ import "./auth.styles.css";
 import heroImage from "../../assets/images/hero-photo.png";
 import { Link } from "react-router-dom";
 import User from "../../assets/images/user";
-import Padlock from "../../assets/images/padlock";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import httpRequestHelper from "../utils/httpRequest.helper";
@@ -30,7 +29,7 @@ const ForgotPassword = () => {
     } else {
       setLoading(true);
       try {
-        const { data } = await httpRequestHelper.post(
+        await httpRequestHelper.post(
           "/auth/forgot-password",
           payload
         );
@@ -43,10 +42,6 @@ const ForgotPassword = () => {
         if (err.response.status === 400) {
           toast.error(err.response.data.message);
         }
-        console.log({
-          message: err.response.data.message,
-          status: err.response.status,
-        });
       }
     }
   };

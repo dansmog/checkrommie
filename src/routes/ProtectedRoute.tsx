@@ -1,4 +1,3 @@
-import { ReactChild } from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({
