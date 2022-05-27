@@ -53,8 +53,8 @@ export default function MoreDetailModal({
         .catch((err) => {
           console.log(err);
           setLoading(false);
-          onCloseModal();
-          alert("error");
+          // onCloseModal();
+          // alert("error");
         });
     }
   }, [id, onCloseModal, open]);
@@ -132,6 +132,7 @@ export default function MoreDetailModal({
                     <div className="apartment-details__items col-12 col-sm-12 col-md-5 col-lg-5">
                       <h6>Qualities I want from a flatmate</h6>
                       <div className="apartment-details__qualities">
+                        {console.log(data)}
                         {data?.qualities.map((quality: any, i: any) => (
                           <div className="apartment-details__quality" key={i}>
                             {quality}
