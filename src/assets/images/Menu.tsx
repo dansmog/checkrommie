@@ -1,4 +1,4 @@
-const Menu = () => {
+const Menu = ({ ...delegated }) => {
   return (
     <svg
       width="24"
@@ -6,6 +6,7 @@ const Menu = () => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...delegated}
     >
       <rect x="4" y="4" width="7" height="7" rx="1.5" fill="#0C1A4B" />
       <path

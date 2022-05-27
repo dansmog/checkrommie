@@ -1,0 +1,8 @@
+.profile__container .image-label {
+  font-size: 14px;
+  font-family: var(--bold);
+}
+
+.apartment__imageSlider {
+  margin-bottom: 20px;
+}
