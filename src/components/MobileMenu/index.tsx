@@ -39,7 +39,7 @@ const MobileMenu = ({
           {!window.localStorage.getItem("checkrommie__user") ? (
             <>
               <NavLink to="/login">Login</NavLink>
-              <NavLink to="/register">Register</NavLink>
+              <NavLink to="/signup">Register</NavLink>
             </>
           ) : (
             <Link to="/login" onClick={logout}>
