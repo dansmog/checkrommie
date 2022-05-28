@@ -168,15 +168,6 @@ const Apartment = () => {
     </div>
   ));
 
-  const imageThumbs = (images: any[]) =>
-    images.map((img) => (
-      <div className="thumb__wrapper" key={`${img.id} ${img.name}`}>
-        <div className="thumb">
-          <img src={img.url} className="img" alt={img.name} />
-        </div>
-      </div>
-    ));
-
   const onSubmit = async (e: any) => {
     e.preventDefault();
     let payload = data;
@@ -303,8 +294,8 @@ const Apartment = () => {
         </div>
         {!loading && success && (
           <form>
-            {data.length !== undefined &&
-              data?.apartment_medias?.length !== 0 ||
+            {data?.length !== undefined &&
+              data?.apartment_medias?.length !== 0 &&
               files?.length === 0 && (
                 <div>
                   <p className="image-label">Your Apartment Images</p>
