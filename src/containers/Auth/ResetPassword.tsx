@@ -2,7 +2,6 @@ import "./auth.styles.css";
 
 import heroImage from "../../assets/images/hero-photo.png";
 import { Link } from "react-router-dom";
-import User from "../../assets/images/user";
 import Padlock from "../../assets/images/padlock";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
@@ -15,7 +14,7 @@ interface IData {
   password_confirm: string;
 }
 const ResetPassword = () => {
-  const [data, setData] = useState({ password: "", password_confirm: "" });
+  const [data, setData] = useState<IData>({ password: "", password_confirm: "" });
   const [isLoading, setLoading] = useState(false);
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
@@ -49,7 +48,7 @@ const ResetPassword = () => {
       setLoading(true);
       console.log("workig here");
       try {
-        const { data } = await httpRequestHelper.post(
+         await httpRequestHelper.post(
           `/auth/reset-password`,
           payload
         );

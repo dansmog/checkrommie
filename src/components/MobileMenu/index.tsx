@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import "./mobilemenu.styles.css";
@@ -36,9 +36,16 @@ const MobileMenu = ({
           <NavLink to="/explore">Explore</NavLink>
           <NavLink to="/apartment">My apartment</NavLink>
           <NavLink to="/profile">My Profile</NavLink>
-          <Link to="/login" onClick={logout}>
-            Log out
-          </Link>
+          {!window.localStorage.getItem("checkrommie__user") ? (
+            <>
+              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/signup">Register</NavLink>
+            </>
+          ) : (
+            <Link to="/login" onClick={logout}>
+              Log out
+            </Link>
+          )}
         </div>
       </div>
     </Rodal>

@@ -21,16 +21,15 @@ export default function MoreDetailModal({
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
 
-  const getQualitiesArray = (qualities: string) => {
-    let newQualities = qualities
-      .replaceAll('"', "")
-      .replaceAll("{", "")
-      .replaceAll("}", "")
-      .split(",");
-    return newQualities;
-  };
+  // const getQualitiesArray = (qualities: string) => {
+  //   let newQualities = qualities
+  //     .replaceAll('"', "")
+  //     .replaceAll("{", "")
+  //     .replaceAll("}", "")
+  //     .split(",");
+  //   return newQualities;
+  // };
 
   useEffect(() => {
     if (open) {

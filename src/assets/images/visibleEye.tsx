@@ -14,8 +14,8 @@ const VisibleEyes = () => {
       />
       <path
         opacity="0.3"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12C15 13.6569 13.6569 15 12 15Z"
         fill="#0C1A4B"
       />
