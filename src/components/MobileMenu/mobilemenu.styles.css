@@ -59,3 +59,10 @@
 .active {
   color: var(--main) !important;
 }
+
+
+@media screen and (max-width: 768px) {
+  .mobile-nav__wrapper {
+    padding-top:120px
+  }
+}

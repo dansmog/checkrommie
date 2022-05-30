@@ -7,7 +7,8 @@ import ImageSlider from "../ImageSlider";
 import { useEffect, useState } from "react";
 import httpRequestHelper from "../../containers/utils/httpRequest.helper";
 import Spinner from "../../assets/images/spinner";
-
+import ErrorHandler from "../../utils/ErrorHandler";
+import { Link } from "react-router-dom";
 
 export default function MoreDetailModal({
   open,
@@ -34,15 +35,9 @@ export default function MoreDetailModal({
   useEffect(() => {
     if (open) {
       setLoading(true);
-      const token = JSON.parse(
-        localStorage.getItem("checkrommie__user")!
-      ).token;
+
       httpRequestHelper
-        .get(`/apartments/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(`/apartments/${id}`)
         .then(({ data }) => {
           const newData = data.data;
           setData(newData);
@@ -52,11 +47,23 @@ export default function MoreDetailModal({
         .catch((err) => {
           console.log(err);
           setLoading(false);
-          // onCloseModal();
-          // alert("error");
+          ErrorHandler(err);
         });
     }
   }, [id, onCloseModal, open]);
+
+  const userContact = () => {
+    const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
+    if (user) {
+      return (
+        <a href={`tel:${data?.user?.phone_number}`} className="contactBtn">
+          Click here to contact
+        </a>
+      );
+    } else {
+      return <Link to="/login" className="contactBtn">Login to view contact</Link>;
+    }
+  };
 
   return (
     <ModalWrapper visible={open} onClose={onCloseModal}>
@@ -85,12 +92,8 @@ export default function MoreDetailModal({
                         <p>NGN {formatCurrency(`${data?.rent_fee}`)}</p>
                       </div>
                       <div className="filler" />
-                      <a
-                        href={`tel:${data?.user?.phone_number}`}
-                        className="contactBtn"
-                      >
-                        Click here to contact
-                      </a>
+
+                      {userContact()}
                     </div>
                   </div>
                 </div>
@@ -107,6 +110,18 @@ export default function MoreDetailModal({
                         I am looking for a male flatmate in my 3 bedroom
                         apartment
                       </p>
+                    </div>
+                    <div className="apartment-details__items col-12">
+                      <h6>Apartment is in</h6>
+                      <p>{data?.country}</p>
+                    </div>
+                    <div className="apartment-details__items col-12">
+                      <h6>Apartment is located at</h6>
+                      <p>{data?.state}</p>
+                    </div>
+                    <div className="apartment-details__items col-12">
+                      <h6>In the city of</h6>
+                      <p>{data?.city}</p>
                     </div>
                     <div className="apartment-details__items col-12">
                       <h6>Description</h6>

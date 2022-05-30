@@ -4,7 +4,7 @@ import RommieCard from "../../components/Card";
 import FullScreenLoader from "../../components/FullscreenLoader";
 import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
-import { Footer } from "../LandingPage";
+import { Footer, Navigation } from "../LandingPage";
 
 import "./explore.styles.css";
 import useGetApartments from "./useGetApartments";
@@ -72,10 +72,18 @@ const Explore = () => {
     setShowModal(!showModal);
   };
 
+  const NavRenderer = () => {
+    const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
+    if(user){
+      return <AuthorizedNav />
+    }
+    return <Navigation />
+  }
+
   return (
     <section>
       <header className="explore__header">
-        <AuthorizedNav />
+        {NavRenderer()}
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -135,8 +143,8 @@ const Explore = () => {
                     <select>
                       <option>Sex of flatmate</option>
                       <option value="male">Male</option>
-                      <option value="female">Male</option>
-                      <option value="any">Both Male or Female</option>
+                      <option value="female">Female</option>
+                      <option value="any">Both Male and Female</option>
                     </select>
                   </div>
                 </div>
