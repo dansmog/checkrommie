@@ -6,6 +6,8 @@ import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 import { Footer, Navigation } from "../LandingPage";
 
+import emptyImage from "../../assets/images/apartment.png";
+
 import "./explore.styles.css";
 import useGetApartments from "./useGetApartments";
 const countrydata = require("countrycitystatejson");
@@ -74,11 +76,11 @@ const Explore = () => {
 
   const NavRenderer = () => {
     const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
-    if(user){
-      return <AuthorizedNav />
+    if (user) {
+      return <AuthorizedNav />;
     }
-    return <Navigation />
-  }
+    return <Navigation />;
+  };
 
   return (
     <section>
@@ -102,7 +104,7 @@ const Explore = () => {
                       {countries.map((country: any) => {
                         return (
                           <option value={country.shortName} key={country.name}>
-                            {country.emoji} {country.name}
+                            {country.name}
                           </option>
                         );
                       })}
@@ -228,6 +230,13 @@ const Explore = () => {
             </div>
           </div>
         </section>
+      )}
+      {!pageLoading && success && apartments.length === 0 && (
+        <div className="emptystate">
+          <img src={emptyImage} alt="" />
+          <h1>There is no result for that</h1>
+          <p>We currently don't have any flatmate request from here yet</p>
+        </div>
       )}
       <Footer />
     </section>
