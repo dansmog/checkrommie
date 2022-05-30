@@ -29,7 +29,6 @@ export default LandingPage;
 const Navigation = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-
   const toggleMobileMenu = () => {
     console.log('working')
     setShowMobileMenu(!showMobileMenu);
@@ -93,7 +92,7 @@ const Masthead = () => (
           </p>
           <div className="action--btn">
             <Link to="/explore">Search for a flatmate</Link>
-            <span>Trust by 12,455 people</span>
+            <span>Trusted by 12,455 people</span>
           </div>
         </div>
         <div className="col-sm-6">
@@ -121,7 +120,7 @@ const Features = () => {
                 <User />
                 <h6>Create an account</h6>
                 <p>
-                  Set up an account with your email and your verify your
+                  Set up an account with your email and then verify your
                   account.
                 </p>
               </div>
