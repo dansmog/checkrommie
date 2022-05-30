@@ -263,6 +263,14 @@ footer p {
     font-size: 14px;
   }
 }
+@media screen and (max-width: 780px) {
+  .hidden-sm {
+    display: none !important;
+  }
+  .hidden-lg {
+    display: flex !important;
+  }
+}
 
 @media screen and (max-width: 460px) {
   .masthead {
@@ -304,7 +312,7 @@ footer p {
     height: 32px;
   }
   footer {
-    margin-top:50px;
+    margin-top: 50px;
   }
 }
 

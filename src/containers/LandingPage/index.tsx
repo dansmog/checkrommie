@@ -26,7 +26,7 @@ const LandingPage = () => {
 
 export default LandingPage;
 
-const Navigation = () => {
+export const Navigation = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const toggleMobileMenu = () => {

@@ -4,7 +4,7 @@ import RommieCard from "../../components/Card";
 import FullScreenLoader from "../../components/FullscreenLoader";
 import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
-import { Footer } from "../LandingPage";
+import { Footer, Navigation } from "../LandingPage";
 
 import "./explore.styles.css";
 import useGetApartments from "./useGetApartments";
@@ -72,10 +72,18 @@ const Explore = () => {
     setShowModal(!showModal);
   };
 
+  const NavRenderer = () => {
+    const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
+    if(user){
+      return <AuthorizedNav />
+    }
+    return <Navigation />
+  }
+
   return (
     <section>
       <header className="explore__header">
-        <AuthorizedNav />
+        {NavRenderer()}
         <div className="container">
           <div className="row">
             <div className="col-12">

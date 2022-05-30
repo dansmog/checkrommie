@@ -149,6 +149,40 @@
   flex-direction: column;
 }
 
+@media screen and (max-width:768px){
+  .input__wrapper .right {
+    left: 326px;
+  }
+  .auth {
+    flex-direction: column;
+  }
+  .left__section {
+    width: 100%;
+    height:auto;
+    padding-top: 20px;
+  }
+  .left__section img {
+    width: 50%;
+  }
+  .right__section {
+    width: 100%;
+  }
+  .right__section .form__wrapper {
+    width: 100%;
+    padding: 16px;
+  }
+  .right__section h1 {
+    font-size: 20px;
+  }
+  .right__section span {
+    font-size: 14px;
+  }
+
+  .form__wrapperHeader {
+    margin-bottom:20px;
+    margin-top:50px;
+  }
+}
 @media screen and (max-width: 480px) {
   .input__wrapper .right {
     left: 326px;
