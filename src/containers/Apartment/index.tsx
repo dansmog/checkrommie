@@ -505,7 +505,7 @@ const Apartment = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>What are you qualities</label>
+              <label>What are you qualities are you looking at for?</label>
               <div className="qualities__wrapper">
                 {personalities.map((personality) => {
                   return (

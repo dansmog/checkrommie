@@ -44,6 +44,10 @@ const qualities = [
   { title: "Extrovert", selected: false },
   { title: "Alert", selected: false },
   { title: "Helpful", selected: false },
+
+  { title: "Optimistic", selected: false },
+  { title: "Adaptable", selected: false },
+  { title: "Curious", selected: false },
 ];
 
 export default qualities;
