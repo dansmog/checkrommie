@@ -136,3 +136,8 @@
     border-radius: 10px !important;
   }
 }
+
+
+.swiper-slide img {
+  object-fit: cover;
+}
