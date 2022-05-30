@@ -135,8 +135,8 @@ const Explore = () => {
                     <select>
                       <option>Sex of flatmate</option>
                       <option value="male">Male</option>
-                      <option value="female">Male</option>
-                      <option value="any">Both Male or Female</option>
+                      <option value="female">Female</option>
+                      <option value="any">Both Male and Female</option>
                     </select>
                   </div>
                 </div>
