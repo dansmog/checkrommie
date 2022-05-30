@@ -286,7 +286,7 @@ const Apartment = () => {
       <ToastContainer />
       <section className="profile__container apartment d-flex ">
         <div className="header">
-          <h1>Your aparment details</h1>
+          <h1>Your apartment details</h1>
           <p>
             Describe everything you want people to know about your aparment and
             what characters you would like to see your flatmates have
