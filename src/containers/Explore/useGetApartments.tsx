@@ -19,10 +19,10 @@ export default function useGetApartments(filter: any, pageNumber: any) {
     setError(false);
     httpRequestHelper
       .get(`/apartments`, {
-        params: { filter, page: pageNumber, take: 12 },
+        params: { ...filter, page: pageNumber, take: 12 },
       })
       .then(({ data }) => {
-        setHasMore(data?.data?.pagination?.hasNextPage);
+        setHasMore(data?.data?.meta?.hasNextPage);
         setApartments((prevApartments: any) => {
           /** @ts-ignore */
           return [...new Set([...prevApartments, ...data.data.data])];
