@@ -1,29 +1,27 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Key, useCallback, useRef, useState } from "react";
+import Spinner from "../../assets/images/spinner";
 import RommieCard from "../../components/Card";
 import FullScreenLoader from "../../components/FullscreenLoader";
 import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 import { Footer } from "../LandingPage";
 
-import httpRequestHelper from "../utils/httpRequest.helper";
-
 import "./explore.styles.css";
+import useGetApartments from "./useGetApartments";
 const countrydata = require("countrycitystatejson");
 
-
 const Explore = () => {
-  const [data, setData] = useState([]);
   const [userRequest, setUserRequest] = useState({});
   const [filter, setFilter] = useState({});
   const countries = countrydata.getCountries();
   const [shortName, setShortName] = useState("");
   const [state, setState] = useState("");
   const [apartmentId, setApartmentId] = useState("");
-
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [showModal, setShowModal] = useState(false);
+  const { apartments, hasMore, success, loading, pageLoading, error } =
+    useGetApartments(filter, pageNumber);
 
   const onCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setUserRequest({
@@ -54,23 +52,20 @@ const Explore = () => {
     setFilter({ ...userRequest });
   };
 
-  useEffect(() => {
-    setLoading(true);
-    httpRequestHelper
-      .get(`/apartments`, {
-        params: filter,
-      })
-      .then(({ data }) => {
-        setLoading(false);
-        setSuccess(true);
-        setData(data.data.data);
-        console.log({ data: data.data });
-      })
-      .catch((error: any) => {
-        setLoading(false);
-        console.log(error);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastApartmentElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPageNumber((prevPageNumber) => prevPageNumber + 1);
+        }
       });
-  }, [filter]);
+      if (node) observer?.current?.observe(node);
+    },
+    [loading, hasMore]
+  );
 
   const onOpenDetailModal = (id: string) => {
     setApartmentId(id);
@@ -98,7 +93,7 @@ const Explore = () => {
                       <option>select country</option>
                       {countries.map((country: any) => {
                         return (
-                          <option value={country.shortName}>
+                          <option value={country.shortName} key={country.name}>
                             {country.emoji} {country.name}
                           </option>
                         );
@@ -172,35 +167,56 @@ const Explore = () => {
           </div>
         </div>
       </header>
-      {loading && <FullScreenLoader />}
-      {!loading && success && data.length > 0 && (
+      {pageLoading && <FullScreenLoader />}
+      {!pageLoading && success && apartments.length > 0 && (
         <section className="rommie__list">
           <div className="container">
             <div className="row">
               <div className="col-sm-12 mb-2">
-                <h6>Total result: {data.length}</h6>
+                <h6>Total result: {apartments.length}</h6>
               </div>
-              {console.log(data)}
               <MoreDetailModal
                 open={showModal}
                 onCloseModal={() => setShowModal(false)}
                 id={apartmentId}
               />
-              {data.map((datum) => {
-                return (
-                  <div
-                    className="col-12 col-sm-4 col-md-6 col-lg-4"
-                    /** @ts-ignore */
-                    key={datum.id}
-                  >
-                    <RommieCard
-                      data={datum}
-                      /** @ts-ignore */
-                      showDetail={() => onOpenDetailModal(datum.id)}
-                    />
-                  </div>
-                );
-              })}
+              {apartments.map(
+                (datum: { id: Key | null | undefined }, index: number) => {
+                  if (apartments.length === index + 1) {
+                    return (
+                      <div
+                        className="col-12 col-sm-4 col-md-6 col-lg-4"
+                        ref={lastApartmentElementRef}
+                        /** @ts-ignore */
+                        key={datum.id}
+                      >
+                        <RommieCard
+                          data={datum}
+                          /** @ts-ignore */
+                          showDetail={() => onOpenDetailModal(datum.id)}
+                        />
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div
+                        className="col-12 col-sm-4 col-md-6 col-lg-4"
+                        /** @ts-ignore */
+                        key={datum.id}
+                      >
+                        <RommieCard
+                          data={datum}
+                          /** @ts-ignore */
+                          showDetail={() => onOpenDetailModal(datum.id)}
+                        />
+                      </div>
+                    );
+                  }
+                }
+              )}
+              <div className="col-12">
+                {loading && !pageLoading && <Spinner />}
+              </div>
             </div>
           </div>
         </section>

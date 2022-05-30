@@ -12,6 +12,7 @@ import "./imageslider.styles.css";
 import { EffectFade, Navigation } from "swiper";
 
 export default function ImageSlider({ medias }: { medias: any }) {
+  console.log(medias)
   return (
     <>
       <Swiper
@@ -21,7 +22,7 @@ export default function ImageSlider({ medias }: { medias: any }) {
         className="mySwiper"
       >
         {medias.map((media: { id: string; url: string; name: string }) => (
-          <SwiperSlide>
+          <SwiperSlide key={media?.id}>
             <img
               key={media?.id}
               src={media?.url}

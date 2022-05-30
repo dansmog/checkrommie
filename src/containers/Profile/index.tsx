@@ -126,7 +126,7 @@ const Profile = () => {
     if (data) {
       setLoading(true);
       try {
-         await httpRequestHelper.patch(`/users`, payload, {
+        await httpRequestHelper.patch(`/users`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -143,20 +143,20 @@ const Profile = () => {
             window.location.replace("/explore");
           }, 2000);
         }
-      } catch (err: any) {
+      } catch (error: any) {
         setLoading(false);
-        if (
-          err.response.status === 401 &&
-          err.response.data.message === "Kindly confirm your email address"
-        ) {
-          return toast.error(err.response.data.message);
+        if (error.message === "Network error") {
+          console.log("i am here");
+          return toast.error("Please check your internet connection");
         }
-        if (err.response.status === 400) {
-          if (Array.isArray(err.response.data.message)) {
-            err.response.data.message.map((message: string) => {
-              return toast.error(message);
-            });
-          }
+        if (error.response.status === 401) {
+          toast.error("Your token has expired, redirecting you to login page");
+          localStorage.removeItem("checkrommie__user");
+          return setTimeout(() => {
+            window.location.replace("/login");
+          }, 2000);
+        } else if (error.response.status !== 401) {
+          return toast.error(error.response.data.message);
         }
       }
     }
@@ -182,9 +182,21 @@ const Profile = () => {
         setLoading(false);
         setSuccess(true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
         setLoading(false);
+        if (error.message === "Network error") {
+          console.log("i am here");
+          return toast.error("Please check your internet connection");
+        }
+        if (error.response.status === 401) {
+          toast.error("Your token has expired, redirecting you to login page");
+          localStorage.removeItem("checkrommie__user");
+          return setTimeout(() => {
+            window.location.replace("/login");
+          }, 2000);
+        } else if (error.response.status !== 401) {
+          return toast.error(error.response.data.message);
+        }
       });
   }, []);
 
@@ -199,15 +211,11 @@ const Profile = () => {
     if (data) {
       setLoading(true);
       try {
-        await httpRequestHelper.post(
-          `/users/upload/profile/image`,
-          payload,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await httpRequestHelper.post(`/users/upload/profile/image`, payload, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         toast.success("Profile photo updated successfully");
         setLoading(false);
         setSuccess(true);
@@ -220,7 +228,7 @@ const Profile = () => {
             });
           }
         }
-      
+
         console.log(err.response.data.message);
       }
     }
@@ -282,15 +290,15 @@ const Profile = () => {
               <div {...getRootProps({ className: "profile__photo" })}>
                 <input {...getInputProps()} />
                 {isDragActive ? (
-                  <p>Drop your profile photo here ...</p>
+                  <p>Drop your profile photo here of about 500kb</p>
                 ) : (
-                  <p> Upload photo</p>
+                  <p> Upload photo of about 500kb</p>
                 )}
               </div>
             )}
 
             <div className="input__wrapper">
-              <label>What's Gender</label>
+              <label>What's your Gender</label>
               <div className="gender__container">
                 <span>
                   <input
@@ -351,7 +359,7 @@ const Profile = () => {
                       value={country.shortName}
                       selected={country.name === data?.country}
                     >
-                      {country.emoji} {country.name}
+                      {country.name}
                     </option>
                   );
                 })}

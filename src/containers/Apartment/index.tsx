@@ -131,7 +131,7 @@ const Apartment = () => {
     });
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     maxFiles: 6,
   });
@@ -163,25 +163,20 @@ const Apartment = () => {
             /** @ts-ignore */
             URL.revokeObjectURL(file.preview);
           }}
+          alt=""
         />
       </div>
     </div>
   ));
 
-  const imageThumbs = (images: any[]) =>
-    images.map((img) => (
-      <div className="thumb__wrapper" key={`${img.id} ${img.name}`}>
-        <div className="thumb">
-          <img src={img.url} className="img" alt={img.name} />
-        </div>
-      </div>
-    ));
-
   const onSubmit = async (e: any) => {
     e.preventDefault();
     let payload = data;
+    console.log(payload);
     const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
-
+    if (payload.length === 0) {
+      return null;
+    }
     if (payload) {
       setIsCreatingApartment(true);
 
@@ -213,15 +208,11 @@ const Apartment = () => {
             toast.success("Apartment images updated succesfully");
           }
 
-          const { data } = await httpRequestHelper.patch(
-            `/apartments/${apartmentId}`,
-            payload,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          await httpRequestHelper.patch(`/apartments/${apartmentId}`, payload, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
           toast.success("Apartment updated successfully");
         } else {
@@ -303,8 +294,8 @@ const Apartment = () => {
         </div>
         {!loading && success && (
           <form>
-            {data.length !== undefined &&
-              data?.apartment_medias?.length !== 0 ||
+            {data?.length !== undefined &&
+              data?.apartment_medias?.length !== 0 &&
               files?.length === 0 && (
                 <div>
                   <p className="image-label">Your Apartment Images</p>
