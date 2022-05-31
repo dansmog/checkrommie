@@ -12,7 +12,6 @@ import "./imageslider.styles.css";
 import { EffectFade, Navigation } from "swiper";
 
 export default function ImageSlider({ medias }: { medias: any }) {
-  console.log(medias)
   return (
     <>
       <Swiper

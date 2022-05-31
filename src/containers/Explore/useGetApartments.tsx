@@ -8,6 +8,7 @@ export default function useGetApartments(filter: any, pageNumber: any) {
   const [pageLoading, setPageLoading] = useState(true);
   const [hasMore, setHasMore] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [totalRequest, setTotalRequest] = useState(0);
 
   useEffect(() => {
     setApartments([]);
@@ -30,6 +31,7 @@ export default function useGetApartments(filter: any, pageNumber: any) {
         setLoading(false);
         setPageLoading(false);
         setSuccess(true);
+        setTotalRequest(data?.data?.meta?.itemCount)
       })
       .catch((error: any) => {
         setLoading(false);
@@ -38,5 +40,5 @@ export default function useGetApartments(filter: any, pageNumber: any) {
       });
   }, [filter, pageNumber]);
 
-  return { loading, pageLoading, success, error, apartments, hasMore };
+  return { loading, pageLoading, success, error, apartments, hasMore, totalRequest };
 }

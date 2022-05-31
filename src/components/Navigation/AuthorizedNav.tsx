@@ -41,10 +41,10 @@ const AuthorizedNav = () => {
                 </NavLink>
               </div>
               <div className="navigation__right">
-                <NavLink to="/explore" className="hidden-sm">
+                <NavLink to="/explore" className="hidden-lg show-sm">
                   Explore
                 </NavLink>
-                <NavLink to="/apartment" className="hidden-sm">
+                <NavLink to="/apartment" className="hidden-sm show-sm">
                   My apartment
                 </NavLink>
                 <NavLink to="/profile" className="hidden-sm">

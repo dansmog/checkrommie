@@ -6,6 +6,8 @@ import MoreDetailModal from "../../components/Modals/MoreDetails";
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
 import { Footer, Navigation } from "../LandingPage";
 
+import emptyImage from "../../assets/images/apartment.png";
+
 import "./explore.styles.css";
 import useGetApartments from "./useGetApartments";
 const countrydata = require("countrycitystatejson");
@@ -19,9 +21,18 @@ const Explore = () => {
   const [apartmentId, setApartmentId] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
 
+  const [filterVisibility, setFilterVisibility] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
-  const { apartments, hasMore, success, loading, pageLoading, error } =
-    useGetApartments(filter, pageNumber);
+  const {
+    apartments,
+    hasMore,
+    success,
+    loading,
+    pageLoading,
+    error,
+    totalRequest,
+  } = useGetApartments(filter, pageNumber);
 
   const onHandleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (!e.target.value || e.target.value === "any") {
@@ -105,6 +116,10 @@ const Explore = () => {
     return <Navigation />;
   };
 
+  const showFilter = () => {
+    setFilterVisibility(!filterVisibility);
+  };
+
   return (
     <section>
       <header className="explore__header">
@@ -118,16 +133,29 @@ const Explore = () => {
                 platform
               </p>
             </div>
-            <div className="filter__wrapper mt-4">
+            <div
+              className=""
+              onClick={showFilter}
+              style={{ fontFamily: "BR Omega Medium" }}
+            >
+              Toggle Filter
+            </div>
+            <div
+              className={
+                filterVisibility
+                  ? "filter__wrapper mt-4 show-on-mobile"
+                  : "filter__wrapper mt-4"
+              }
+            >
               <div className="col-12">
-                <div className="row g-3">
+                <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
                     <select onChange={onCountryChange}>
                       <option value="">select country</option>
                       {countries.map((country: any) => {
                         return (
                           <option value={country.shortName} key={country.name}>
-                            {country.emoji} {country.name}
+                            {country.name}
                           </option>
                         );
                       })}
@@ -175,7 +203,7 @@ const Explore = () => {
                 </div>
               </div>
               <div className="col-12 mt-2">
-                <div className="row">
+                <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
                     <select name="religion" onChange={onHandleSelectChange}>
                       <option value="">Religion of flatmate</option>
@@ -198,8 +226,10 @@ const Explore = () => {
                   </div>
                 </div>
               </div>
+              <div className="col-12">
+                <button onClick={onSubmit}>Filter result</button>
+              </div>
             </div>
-            <button onClick={onSubmit}>Filter result</button>
           </div>
         </div>
       </header>
@@ -209,7 +239,7 @@ const Explore = () => {
           <div className="container">
             <div className="row">
               <div className="col-sm-12 mb-2">
-                <h6>Total result: {apartments.length}</h6>
+                <h6>Total result: {totalRequest}</h6>
               </div>
               <MoreDetailModal
                 open={showModal}
@@ -256,6 +286,13 @@ const Explore = () => {
             </div>
           </div>
         </section>
+      )}
+      {!pageLoading && success && apartments.length === 0 && (
+        <div className="emptystate">
+          <img src={emptyImage} alt="" />
+          <h1>There is no result for that</h1>
+          <p>We currently don't have any flatmate request from here yet</p>
+        </div>
       )}
       <Footer />
     </section>

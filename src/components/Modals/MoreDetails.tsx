@@ -9,6 +9,7 @@ import httpRequestHelper from "../../containers/utils/httpRequest.helper";
 import Spinner from "../../assets/images/spinner";
 import ErrorHandler from "../../utils/ErrorHandler";
 import { Link } from "react-router-dom";
+import User from "../../assets/images/user";
 
 export default function MoreDetailModal({
   open,
@@ -71,11 +72,15 @@ export default function MoreDetailModal({
                 <div className="apartment-owner">
                   <div className="row g-3">
                     <div className="left col-12 col-md-12 col-lg-7 user-title">
-                      <img
-                        src={data?.user?.avatar}
-                        className="apartment-owner__avatar"
-                        alt="apartment owner profile pic"
-                      />
+                      {data?.user?.avatar !== null ? (
+                        <img
+                          src={data?.user?.avatar}
+                          className="apartment-owner__avatar"
+                          alt="apartment owner profile pic"
+                        />
+                      ) : (
+                        <User />
+                      )}
                       <div>
                         <h4>{data?.user?.name}</h4>
                         <p>{`Male looking for male or female flatmate`}</p>
@@ -96,6 +101,19 @@ export default function MoreDetailModal({
                   {data?.apartment_medias?.length ? (
                     <ImageSlider medias={data?.apartment_medias} />
                   ) : null}
+                  {data?.apartment_medias?.length === 0 && (
+                    <div
+                      style={{
+                        width: "100%",
+                        padding: 100,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>{data?.user?.name} haven't uploaded any image yet</p>
+                    </div>
+                  )}
                 </div>
                 <div className="apartment-details__list">
                   <div className="row g-4">
@@ -134,10 +152,7 @@ export default function MoreDetailModal({
                       <h6>Should be from?</h6>
                       <p>Any country</p>
                     </div>
-                    <div className="apartment-details__items col-12 col-sm-12 col-md-6 col-lg-3">
-                      <h6>Should be from?</h6>
-                      <p>Any country</p>
-                    </div>
+
                     <div className="apartment-details__items col-12 col-sm-12 col-md-5 col-lg-5">
                       <h6>Qualities I want from a flatmate</h6>
                       <div className="apartment-details__qualities">
