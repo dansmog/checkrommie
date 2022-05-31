@@ -5,7 +5,7 @@ import "./rommieCard.styles.css";
 const RommieCard = ({ data, showDetail }: { data: any; showDetail: any }) => {
   return (
     <div className="rommie__card" onClick={showDetail}>
-      <img src={data.apartment_medias[0].url} alt="" />
+      <img src={data?.apartment_medias[0]?.url} alt="" />
       <div className="card__footer">
         <div className="rommie--details">
           {data?.user?.avatar ? (

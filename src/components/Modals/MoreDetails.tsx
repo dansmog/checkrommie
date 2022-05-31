@@ -23,15 +23,6 @@ export default function MoreDetailModal({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // const getQualitiesArray = (qualities: string) => {
-  //   let newQualities = qualities
-  //     .replaceAll('"', "")
-  //     .replaceAll("{", "")
-  //     .replaceAll("}", "")
-  //     .split(",");
-  //   return newQualities;
-  // };
-
   useEffect(() => {
     if (open) {
       setLoading(true);
@@ -61,7 +52,11 @@ export default function MoreDetailModal({
         </a>
       );
     } else {
-      return <Link to="/login" className="contactBtn">Login to view contact</Link>;
+      return (
+        <Link to="/login" className="contactBtn">
+          Login to view contact
+        </Link>
+      );
     }
   };
 
@@ -83,7 +78,7 @@ export default function MoreDetailModal({
                       />
                       <div>
                         <h4>{data?.user?.name}</h4>
-                        <p>Male looking for male or female flatmate</p>
+                        <p>{`Male looking for male or female flatmate`}</p>
                       </div>
                     </div>
                     <div className="right col-12 col-md-12 col-lg-5">
@@ -98,9 +93,9 @@ export default function MoreDetailModal({
                   </div>
                 </div>
                 <div className="apartment__image-carousel">
-                  {data?.apartment_medias?.length && (
+                  {data?.apartment_medias?.length ? (
                     <ImageSlider medias={data?.apartment_medias} />
-                  )}
+                  ) : null}
                 </div>
                 <div className="apartment-details__list">
                   <div className="row g-4">
@@ -146,7 +141,6 @@ export default function MoreDetailModal({
                     <div className="apartment-details__items col-12 col-sm-12 col-md-5 col-lg-5">
                       <h6>Qualities I want from a flatmate</h6>
                       <div className="apartment-details__qualities">
-                        {console.log(data)}
                         {data?.qualities.map((quality: any, i: any) => (
                           <div className="apartment-details__quality" key={i}>
                             {quality}

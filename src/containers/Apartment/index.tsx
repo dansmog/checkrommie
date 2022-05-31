@@ -248,11 +248,21 @@ const Apartment = () => {
   };
 
   useEffect(() => {
-    const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
-      .user.id;
+    const user = JSON.parse(
+      window.localStorage.getItem("checkrommie__user")!
+    ).user;
+    const userId = user.id;
     const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
 
     if (userId) {
+      if (!user.avatar && !user.gender && !user.phone_number) {
+        setLoading(false);
+        toast.error("complete user profile to add your apartment");
+        setTimeout(() => {
+          window.location.replace("/profile");
+        }, 1000);
+        return;
+      }
       setLoading(true);
 
       httpRequestHelper

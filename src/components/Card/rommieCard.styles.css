@@ -29,6 +29,7 @@
 .rommie--details {
   display: flex;
   align-items: center;
+  gap: 8px;
 }
 .rommie--details h6,
 .rommie--details span {
@@ -38,11 +39,12 @@
 .rommie--details h6,
 .house--details h6 {
   font-family: var(--bold);
+  line-height: 1;
 }
 .rommie--details span,
 .house--details span {
   font-family: var(--medium);
-  margin:0;
+  margin: 0;
   font-size: 14px;
 }
 .house--details {
@@ -51,7 +53,10 @@
 }
 .house--details span {
   text-align: right;
+}
 
+.rommie--detailsUser {
+  line-height: 1;
 }
 
 .rommie--detailsUser img {
