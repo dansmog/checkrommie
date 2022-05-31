@@ -130,7 +130,7 @@ const Features = () => {
                 <h6>Fill up your profile and roommate qualities</h6>
                 <p>
                   complete your profile by describing yourself and what
-                  qaulities you would like your roommates to have.
+                  qualities you would like your roommates to have.
                 </p>
               </div>
             </div>
