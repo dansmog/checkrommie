@@ -21,6 +21,8 @@ const Explore = () => {
   const [apartmentId, setApartmentId] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
 
+  const [filterVisibility, setFilterVisibility] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const { apartments, hasMore, success, loading, pageLoading, error } =
     useGetApartments(filter, pageNumber);
@@ -82,6 +84,10 @@ const Explore = () => {
     return <Navigation />;
   };
 
+  const showFilter = () => {
+    setFilterVisibility(!filterVisibility)
+  }
+
   return (
     <section>
       <header className="explore__header">
@@ -95,9 +101,10 @@ const Explore = () => {
                 platform
               </p>
             </div>
-            <div className="filter__wrapper mt-4">
+            <div className="" onClick={showFilter} style={{fontFamily: 'BR Omega Medium'}}>Toggle Filter</div>
+            <div className={filterVisibility ? "filter__wrapper mt-4 show-on-mobile" : "filter__wrapper mt-4"}>
               <div className="col-12">
-                <div className="row g-3">
+                <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
                     <select onChange={onCountryChange}>
                       <option>select country</option>
@@ -152,7 +159,7 @@ const Explore = () => {
                 </div>
               </div>
               <div className="col-12 mt-2">
-                <div className="row">
+                <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
                     <select>
                       <option>Religion of flatmate</option>
@@ -172,8 +179,10 @@ const Explore = () => {
                   </div>
                 </div>
               </div>
+              <div className="col-12">
+                <button onClick={onSubmit}>Filter result</button>
+              </div>
             </div>
-            <button onClick={onSubmit}>Filter result</button>
           </div>
         </div>
       </header>

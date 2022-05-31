@@ -30,7 +30,7 @@ export const Navigation = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const toggleMobileMenu = () => {
-    console.log('working')
+    console.log("working");
     setShowMobileMenu(!showMobileMenu);
   };
   return (
@@ -57,7 +57,7 @@ export const Navigation = () => {
                 <NavLink to="/explore" className="hidden-lg show-sm">
                   Explore
                 </NavLink>
-                <Link to="/login" className="hidden-sm">
+                <Link to="/login" className="hidden-sm show-sm">
                   Log in
                 </Link>
                 <Link to="/explore" className="hidden-sm getStarted">
@@ -84,7 +84,6 @@ const Masthead = () => (
         <div className="col-sm-6">
           <h1>
             Searching for a perfect roommate or flatmate just got easier and
-            safer
           </h1>
           <p>
             With checkrommie, we guarantee that you can find a roommate or
@@ -168,7 +167,7 @@ const Benefits = () => {
                 <h6>Fast and efficient search</h6>
                 <p>
                   You don’t just find roommates or flatmates, you get to enjoy
-                  so much benefits using checkroommie
+                  so much benefits using checkrommie
                 </p>
               </div>
             </div>
@@ -210,7 +209,7 @@ export const Footer = () => {
               With checkrommie, we guarantee that you can find a roommate or
               flatmate that is perfect for you.
             </p>
-            <Link to="/explore" className="footerBtn">
+            <Link to="/signup" className="footerBtn">
               Get started
             </Link>
           </div>
@@ -219,13 +218,15 @@ export const Footer = () => {
       <div className="container copyright">
         <div className="row">
           <div className="w-50 m-auto text-center">
-            <p>CheckRoommie | &copy; copyright 2022 all rights reserved</p>
+            <p>CheckRommie | &copy; copyright 2022 all rights reserved</p>
             <div className="copyright__footerLinks">
               <Link to="/about">About us</Link>
-              <Link to="/contact">Contact us</Link>
               <Link to="/terms">Terms and Condition</Link>
               <Link to="/policy">Privacy policy</Link>
             </div>
+          </div>
+          <div className="w-50 m-auto text-center">
+            <p>Contact support Email: support@checkrommie.com | 08139464006 </p>
           </div>
         </div>
       </div>
