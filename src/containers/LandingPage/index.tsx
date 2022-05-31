@@ -83,7 +83,7 @@ const Masthead = () => (
       <div className="row">
         <div className="col-sm-6">
           <h1>
-            Searching for a perfect roommate or flatmate just got easier and
+            Searching for a perfect roommate or flatmate just got easier.
           </h1>
           <p>
             With checkrommie, we guarantee that you can find a roommate or
