@@ -24,7 +24,7 @@ const Explore = () => {
   const [filterVisibility, setFilterVisibility] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
-  const { apartments, hasMore, success, loading, pageLoading, error } =
+  const { apartments, hasMore, success, loading, pageLoading, error, totalRequest } =
     useGetApartments(filter, pageNumber);
 
   const onCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -192,7 +192,7 @@ const Explore = () => {
           <div className="container">
             <div className="row">
               <div className="col-sm-12 mb-2">
-                <h6>Total result: {apartments.length}</h6>
+                <h6>Total result: {totalRequest}</h6>
               </div>
               <MoreDetailModal
                 open={showModal}
