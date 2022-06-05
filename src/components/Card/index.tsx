@@ -13,7 +13,6 @@ const RommieCard = ({ data, showDetail }: { data: any; showDetail: any }) => {
       ) : (
         <img src={data?.apartment_medias[0]?.url} alt="" />
       )}
-
       <div className="card__footer">
         <div className="rommie--details">
           {data?.user?.avatar !== null ? (

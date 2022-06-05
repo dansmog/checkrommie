@@ -24,8 +24,29 @@ const Explore = () => {
   const [filterVisibility, setFilterVisibility] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
-  const { apartments, hasMore, success, loading, pageLoading, error, totalRequest } =
-    useGetApartments(filter, pageNumber);
+  const {
+    apartments,
+    hasMore,
+    success,
+    loading,
+    pageLoading,
+    error,
+    totalRequest,
+  } = useGetApartments(filter, pageNumber);
+
+  const onHandleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (!e.target.value || e.target.value === "any") {
+      setUserRequest({
+        ...userRequest,
+        [e.target.name]: undefined,
+      });
+      return;
+    }
+    setUserRequest({
+      ...userRequest,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const onCityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setUserRequest({
@@ -34,6 +55,17 @@ const Explore = () => {
     });
   };
   const onCountryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (!e?.target?.value) {
+      setShortName("");
+      setState("");
+      setUserRequest({
+        ...userRequest,
+        country: undefined,
+        state: undefined,
+        city: undefined,
+      });
+      return;
+    }
     setShortName(e.target.value);
     const country = countrydata.getCountryByShort(e.target.value).name;
     setUserRequest({
@@ -85,8 +117,8 @@ const Explore = () => {
   };
 
   const showFilter = () => {
-    setFilterVisibility(!filterVisibility)
-  }
+    setFilterVisibility(!filterVisibility);
+  };
 
   return (
     <section>
@@ -107,7 +139,7 @@ const Explore = () => {
                 <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
                     <select onChange={onCountryChange}>
-                      <option>select country</option>
+                      <option value="">select country</option>
                       {countries.map((country: any) => {
                         return (
                           <option value={country.shortName} key={country.name}>
@@ -149,8 +181,8 @@ const Explore = () => {
                     </select>
                   </div>
                   <div className="col-sm-3 col-lg-3">
-                    <select>
-                      <option>Sex of flatmate</option>
+                    <select name="gender" onChange={onHandleSelectChange}>
+                      <option value="">Sex of flatmate</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="any">Both Male and Female</option>
@@ -161,20 +193,23 @@ const Explore = () => {
               <div className="col-12 mt-2">
                 <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
-                    <select>
-                      <option>Religion of flatmate</option>
+                    <select name="religion" onChange={onHandleSelectChange}>
+                      <option value="">Religion of flatmate</option>
                       <option value="christian">Christian</option>
                       <option value="islam">Islam</option>
                       <option value="any">Any</option>
                     </select>
                   </div>
                   <div className="col-sm-3 col-lg-3">
-                    <select>
-                      <option>Employment status</option>
-                      <option value="employed">Employed</option>
-                      <option value="self employed">Self employed</option>
-                      <option value="entreprenuer">Entreprenuer</option>
-                      <option value="student">Student</option>
+                    <select
+                      name="employment_status"
+                      onChange={onHandleSelectChange}
+                    >
+                      <option value="">Employment status</option>
+                      <option value="Employed">Employed</option>
+                      <option value="Self Employed">Self employed</option>
+                      <option value="Entreprenuer">Entreprenuer</option>
+                      <option value="Student">Student</option>
                     </select>
                   </div>
                 </div>

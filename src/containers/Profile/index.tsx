@@ -146,7 +146,6 @@ const Profile = () => {
       } catch (error: any) {
         setLoading(false);
         if (error.message === "Network error") {
-          console.log("i am here");
           return toast.error("Please check your internet connection");
         }
         if (error.response.status === 401) {
