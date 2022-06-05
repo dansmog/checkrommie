@@ -7,6 +7,9 @@ import ResetPassword from "../containers/Auth/ResetPassword";
 import Signup from "../containers/Auth/Signup";
 import Explore from "../containers/Explore";
 import LandingPage from "../containers/LandingPage";
+import About from "../containers/MarketingPages/About";
+import Privacy from "../containers/MarketingPages/Privacy";
+import Terms from "../containers/MarketingPages/Terms";
 import Profile from "../containers/Profile";
 import ProtectedRoute, { PublicRoute } from "./ProtectedRoute";
 
@@ -54,6 +57,9 @@ const AppRoutes = () => {
           }
         />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/privacy-policy" element={<Privacy />} />
+        <Route path="/terms-of-use" element={<Terms />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );

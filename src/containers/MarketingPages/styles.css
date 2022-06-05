@@ -1,0 +1,49 @@
+.marketing-wrapper .navigation {
+  margin-bottom: 20px;
+}
+.marketing {
+  padding:100px 0;
+  background-color: #f1f3f6;
+}
+.marketing h1 {
+  font-size: 60px;
+  font-family: var(--bold);
+}
+
+.content {
+  padding: 100px 200px;
+}
+
+.title {
+  font-size: 48px;
+  font-family: var(--bold);
+}
+.body {
+  font-size:16px;
+  margin:20px 0;
+  font-family: var(--regular);
+}
+
+@media screen and (max-width:460px){
+  .marketing-wrapper .navigation {
+    margin-bottom: 10px !important;
+  }
+  .marketing{
+    padding:50px;
+  }
+  .marketing h1{
+    font-size:24px;
+  }
+  .content {
+    padding: 50px 0px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .body {
+    font-size:14px;
+  }
+  .mb-5 {
+    margin-bottom:20px !important;
+  }
+}

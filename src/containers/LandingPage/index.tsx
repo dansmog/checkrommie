@@ -221,8 +221,8 @@ export const Footer = () => {
             <p>CheckRommie | &copy; copyright 2022 all rights reserved</p>
             <div className="copyright__footerLinks">
               <Link to="/about">About us</Link>
-              <Link to="/terms">Terms and Condition</Link>
-              <Link to="/policy">Privacy policy</Link>
+              <Link to="/terms-of-use">Terms and Condition</Link>
+              <Link to="/privacy-policy">Privacy policy</Link>
             </div>
           </div>
           <div className="w-50 m-auto text-center">
