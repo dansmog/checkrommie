@@ -458,15 +458,19 @@ const Apartment = () => {
               <select onChange={onChangeEmploymentStatus}>
                 <option>Select status</option>
                 {/** @ts-ignore */}
-                {["Employed", "Self Employed", "Student", "Not Employed"].map(
-                  (status: string) => {
-                    return (
-                      <option value={status} key={status}>
-                        {status}
-                      </option>
-                    );
-                  }
-                )}
+                {[
+                  "Employed",
+                  "Self Employed",
+                  "Student",
+                  "Not Employed",
+                  "I don't care",
+                ].map((status: string) => {
+                  return (
+                    <option value={status} key={status}>
+                      {status}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="input__wrapper">
@@ -515,7 +519,7 @@ const Apartment = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>What are you qualities are you looking at for?</label>
+              <label>What are qualities are you looking at for?</label>
               <div className="qualities__wrapper">
                 {personalities.map((personality) => {
                   return (

@@ -133,20 +133,8 @@ const Explore = () => {
                 platform
               </p>
             </div>
-            <div
-              className=""
-              onClick={showFilter}
-              style={{ fontFamily: "BR Omega Medium" }}
-            >
-              Toggle Filter
-            </div>
-            <div
-              className={
-                filterVisibility
-                  ? "filter__wrapper mt-4 show-on-mobile"
-                  : "filter__wrapper mt-4"
-              }
-            >
+            <div className="" onClick={showFilter} style={{fontFamily: 'BR Omega Medium', fontSize: 17, paddingTop: 10}}>Filter</div>
+            <div className={filterVisibility ? "filter__wrapper mt-4 show-on-mobile" : "filter__wrapper mt-4"}>
               <div className="col-12">
                 <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">

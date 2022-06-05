@@ -476,7 +476,7 @@ const Profile = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>What are you qualities</label>
+              <label>What are your qualities</label>
               <div className="qualities__wrapper">
                 {personalities.map((personality) => {
                   return (
