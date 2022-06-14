@@ -20,6 +20,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [files, setFile] = useState([]);
+  const [searchRequest, setSearchRequest] = useState(false);
 
   const getShortName = (country: string) => {
     if (country) {
@@ -120,13 +121,13 @@ const Profile = () => {
   });
 
   const onSubmit = async (e: any) => {
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
     const payload = data;
     e.preventDefault();
     if (data) {
       setLoading(true);
       try {
-        await httpRequestHelper.patch(`/users`, payload, {
+        const res = await httpRequestHelper.patch(`/users`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -134,11 +135,24 @@ const Profile = () => {
         toast.success("Profile updated successfully");
         setLoading(false);
         setSuccess(true);
+        onFetchUserData();
+        window.localStorage.setItem(
+          "checkrommie__user",
+          JSON.stringify(res.data)
+        );
+        window.localStorage.setItem(
+          "searchRequest",
+          JSON.stringify(searchRequest)
+        );
         if (payload.has_apartment === true) {
           setTimeout(() => {
             window.location.replace("/apartment");
           }, 2000);
-        } else if (payload.has_apartment === false) {
+        } else if (payload.has_apartment === false && searchRequest) {
+          setTimeout(() => {
+            window.location.replace("/apartment");
+          }, 2000);
+        } else if (payload.has_apartment === false && searchRequest === false) {
           setTimeout(() => {
             window.location.replace("/explore");
           }, 2000);
@@ -161,11 +175,12 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
+  const onFetchUserData = () => {
     setLoading(true);
-    const userId = JSON.parse(window.localStorage.getItem("checkrommie__user")!)
-      .user.id;
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    const userId = JSON.parse(
+      window.localStorage.getItem("checkrommie__user")!
+    ).id;
+    const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
     httpRequestHelper
       .get(`/users/${userId}`, {
         headers: {
@@ -176,6 +191,10 @@ const Profile = () => {
         const newData = data.data;
         setData(newData);
         console.log(newData);
+        window.localStorage.setItem(
+          "checkrommie__user",
+          JSON.stringify(newData)
+        );
         setShortName(getShortName(newData?.country));
         setState(newData?.state);
         setLoading(false);
@@ -197,6 +216,17 @@ const Profile = () => {
           return toast.error(error.response.data.message);
         }
       });
+  };
+
+  useEffect(() => {
+    onFetchUserData();
+  }, []);
+
+  useEffect(() => {
+    const req = JSON.parse(window.localStorage.getItem("searchRequest")!);
+    if (req) {
+      setSearchRequest(req);
+    }
   }, []);
 
   const onSubmitPhoto = async (e: any) => {
@@ -254,6 +284,11 @@ const Profile = () => {
       <button onClick={onSubmitPhoto}>Save photo</button>
     </div>
   ));
+
+  const onChangeSearchRequest = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    setSearchRequest(e.target.value === "Yes" ? true : false);
+  };
 
   const Avatar = ({ avatar }: { avatar: string }) => (
     <div className="thumb__wrapper">
@@ -347,6 +382,34 @@ const Profile = () => {
                 </span>
               </div>
             </div>
+
+            {data?.has_apartment === false && (
+              <div className="input__wrapper">
+                <label>But are you looking for a flatmate/roommate?</label>
+                <div className="gender__container">
+                  <span>
+                    <input
+                      type="radio"
+                      name="flatmate_search"
+                      value="Yes"
+                      onChange={onChangeSearchRequest}
+                      checked={data?.searchRequest}
+                    />{" "}
+                    Yes
+                  </span>
+                  <span>
+                    <input
+                      type="radio"
+                      name="flatmate_search"
+                      value="No"
+                      checked={data?.searchRequest}
+                      onChange={onChangeSearchRequest}
+                    />{" "}
+                    No
+                  </span>
+                </div>
+              </div>
+            )}
 
             <div className="input__wrapper">
               <label>Which Country are you from?</label>

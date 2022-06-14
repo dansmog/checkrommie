@@ -20,14 +20,18 @@ httpRequestHelper.interceptors.response.use(
         reject(error);
       });
     }
-    console.log(error.response)
-
     if (!error.response.data) {
       return toast.error(
         "Please check your internet connectivity and try again"
       );
     }
-    if (error.response.status === 401) {
+    console.log(error.response.data)
+    if(error.response.status === 401 && error.response.data.message === 'Kindly confirm your email address'){
+      return new Promise((resolve, reject) => {
+        reject(error)
+      })
+    }
+    if (error.response.status === 401 && error.reponse.data.message === "Your token has expired") {
       toast.error("Your token has expired, redirecting you to login page");
       localStorage.removeItem("checkrommie__user");
       setTimeout(() => {

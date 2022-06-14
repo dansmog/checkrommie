@@ -56,6 +56,13 @@ const Signup = () => {
         setSuccess(true);
       } catch (err: any) {
         setLoading(false);
+        if(err.response.data.message === "User with that email already exists"){
+          toast.error(err.response.data.message);
+          toast.error("Redirecting you to login page");
+          setTimeout(() => {
+            window.location.replace("/login")
+          }, 3000)
+        }
         if (err.response.status === 400) {
           toast.error(err.response.data.message);
         }

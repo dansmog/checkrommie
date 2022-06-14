@@ -33,6 +33,18 @@
 }
 
 
+.has_apartment {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.has_apartment input {
+  margin-right: 8px;
+}
+.has_apartment span {
+  font-family: var(--bold);
+}
 
 
 

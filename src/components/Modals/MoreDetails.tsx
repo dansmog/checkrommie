@@ -119,6 +119,7 @@ export default function MoreDetailModal({
                   <div className="row g-4">
                     <div className="apartment-details__items col-12">
                       <h6>Title</h6>
+
                       <p>
                         I am looking for a male flatmate in my 3 bedroom
                         apartment

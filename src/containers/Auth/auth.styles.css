@@ -71,6 +71,13 @@
   padding-left: 48px;
   font-family: var(--medium);
 }
+.input__wrapper textarea {
+  height: 200px;
+  border: 1.5px solid #3861fb;
+  padding: 16px;
+  border-radius: 4px;
+  font-family: var(--medium);
+}
 
 .form__wrapper button {
   border: none;

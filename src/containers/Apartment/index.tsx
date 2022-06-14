@@ -1,6 +1,14 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast, ToastContainer } from "react-toastify";
+import {
+  FacebookIcon,
+  LinkedinIcon,
+  TelegramIcon,
+  TwitterIcon,
+  WhatsappIcon,
+} from "react-share";
+
 import FullScreenLoader from "../../components/FullscreenLoader";
 
 import AuthorizedNav from "../../components/Navigation/AuthorizedNav";
@@ -23,6 +31,7 @@ const Apartment = () => {
   const countries = countrydata.getCountries();
   const [files, setFiles] = useState([]);
   const [apartmentId, setApartmentId] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -54,6 +63,13 @@ const Apartment = () => {
   };
 
   const onHandleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onHandleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -173,7 +189,7 @@ const Apartment = () => {
     e.preventDefault();
     let payload = data;
     console.log(payload);
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
+    const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
     if (payload.length === 0) {
       return null;
     }
@@ -248,12 +264,13 @@ const Apartment = () => {
   };
 
   useEffect(() => {
-    const user = JSON.parse(
-      window.localStorage.getItem("checkrommie__user")!
-    ).user;
+    const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
     const userId = user.id;
-    const token = JSON.parse(localStorage.getItem("checkrommie__user")!).token;
-
+    const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
+    setData({
+      ...data,
+      has_apartment: user.has_apartment,
+    });
     if (userId) {
       if (!user.avatar && !user.gender && !user.phone_number) {
         setLoading(false);
@@ -289,20 +306,29 @@ const Apartment = () => {
     }
   }, []);
 
+  const has_apartment = JSON.parse(
+    window.localStorage.getItem("checkrommie__user")!
+  ).has_apartment;
+  const searchRequest = JSON.parse(
+    window.localStorage.getItem("searchRequest")!
+  );
+
   return (
     <section>
       {loading && <FullScreenLoader />}
       <AuthorizedNav />
       <ToastContainer />
       <section className="profile__container apartment d-flex ">
-        <div className="header">
-          <h1>Your apartment details</h1>
-          <p>
-            Describe everything you want people to know about your aparment and
-            what characters you would like to see your flatmates have
-          </p>
-        </div>
-        {!loading && success && (
+     
+          <div className="header">
+            <h1>Your apartment details</h1>
+            <p>
+              Describe everything you want people to know about your aparment
+              and what characters you would like to see your flatmates have
+            </p>
+          </div>
+      
+        {!loading && success  && (
           <form>
             {data?.length !== undefined &&
               data?.apartment_medias?.length !== 0 &&
@@ -314,18 +340,21 @@ const Apartment = () => {
                   </div>
                 </div>
               )}
-            <div className="input__wrapper">
-              <div {...getRootProps({ className: "dropzone" })}>
-                <input {...getInputProps()} />
-                <p>
-                  Drag 'n' drop to change your apartment images here, or click
-                  to select files
-                </p>
-                <em>
-                  (6 files are the maximum number of files you can drop here)
-                </em>
+            {!has_apartment && searchRequest ? null : (
+              <div className="input__wrapper">
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()} />
+                  <p>
+                    Drag 'n' drop to change your apartment images here, or click
+                    to select files
+                  </p>
+                  <em>
+                    (6 files are the maximum number of files you can drop here)
+                  </em>
+                </div>
               </div>
-            </div>
+            )}
+
             {files.length !== 0 && (
               <div className="apartment__photoWrapper">{thumbs}</div>
             )}
@@ -340,12 +369,11 @@ const Apartment = () => {
             </div>
             <div className="input__wrapper">
               <label>Describe your apartment</label>
-              <input
-                type="text"
+              <textarea
                 name="description"
                 value={data?.description}
-                onChange={onHandleInputChange}
-              />
+                onChange={onHandleDescriptionChange}
+              ></textarea>
             </div>
             <div className="input__wrapper">
               <label>What gender are you looking for?</label>
@@ -541,9 +569,32 @@ const Apartment = () => {
             </button>
           </form>
         )}
+        {/* {!loading && success && !isEditing && <SuccessMessage />} */}
       </section>
     </section>
   );
 };
+
+// const SuccessMessage = () => {
+//   const shareUrl = ""
+//   return (
+//     <section className="success__container">
+//       <h1>You have successfully created a request</h1>
+//       <p>
+//         Share your request page on social media and whatsapp with friends and
+//         families to increase your chances of getting a flatmate
+//       </p>
+//       <div className="">
+//         <FacebookShareButton
+//           url={shareUrl}
+//           quote={title}
+//           className="Demo__some-network__share-button"
+//         >
+//           <FacebookIcon size={32} round />
+//         </FacebookShareButton>
+//       </div>
+//     </section>
+//   );
+// };
 
 export default Apartment;

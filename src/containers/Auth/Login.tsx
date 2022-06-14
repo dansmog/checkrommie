@@ -46,11 +46,16 @@ const Login = () => {
           "checkrommie__user",
           JSON.stringify(data.data)
         );
+        window.localStorage.setItem(
+          "checkrommie__token",
+          JSON.stringify(data.data.token)
+        );
         setTimeout(() => {
           window.location.replace("/profile");
         }, 3000);
       } catch (err: any) {
         setLoading(false);
+        console.log(err);
         if (
           err.response.status === 401 &&
           err.response.data.message === "Kindly confirm your email address"
@@ -70,10 +75,7 @@ const Login = () => {
       email: data.email,
     };
     try {
-       await httpRequestHelper.post(
-        "/email-confirmation/resend-link",
-        payload
-      );
+      await httpRequestHelper.post("/email-confirmation/resend-link", payload);
       toast.success("Please check your email");
       setLoading(false);
     } catch (err: any) {

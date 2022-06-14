@@ -6,3 +6,23 @@
 .apartment__imageSlider {
   margin-bottom: 20px;
 }
+
+
+
+.success__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.success__container h1 {
+  text-align: center;
+  font-family: var(--bold);
+  font-size:24px;
+}
+.success__container p {
+  font-size:16px;
+  font-family: var(--medium);
+  text-align: center;
+  margin-top: 24px;
+}

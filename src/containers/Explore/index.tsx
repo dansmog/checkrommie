@@ -20,6 +20,7 @@ const Explore = () => {
   const [state, setState] = useState("");
   const [apartmentId, setApartmentId] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const [searchRequest, setSearchRequest] = useState(false);
 
   const [filterVisibility, setFilterVisibility] = useState(false);
 
@@ -108,6 +109,15 @@ const Explore = () => {
     setShowModal(!showModal);
   };
 
+  const onHasApartmentChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchRequest(e.target.checked)
+    setFilter({
+      ...filter,
+      has_apartment: e.target.checked ? false : true
+    })
+  };
+
+
   const NavRenderer = () => {
     const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
     if (user) {
@@ -133,8 +143,24 @@ const Explore = () => {
                 platform
               </p>
             </div>
-            <div className="" onClick={showFilter} style={{fontFamily: 'BR Omega Medium', fontSize: 17, paddingTop: 10}}>Filter</div>
-            <div className={filterVisibility ? "filter__wrapper mt-4 show-on-mobile" : "filter__wrapper mt-4"}>
+            <div
+              className=""
+              onClick={showFilter}
+              style={{
+                fontFamily: "BR Omega Medium",
+                fontSize: 17,
+                paddingTop: 10,
+              }}
+            >
+              Filter
+            </div>
+            <div
+              className={
+                filterVisibility
+                  ? "filter__wrapper mt-4 show-on-mobile"
+                  : "filter__wrapper mt-4"
+              }
+            >
               <div className="col-12">
                 <div className="row g-2">
                   <div className="col-sm-3 col-lg-3">
@@ -190,8 +216,8 @@ const Explore = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-12 mt-2">
-                <div className="row g-2">
+              <div className="col-12 mt-2 align-center">
+                <div className="row g-2 align-center">
                   <div className="col-sm-3 col-lg-3">
                     <select name="religion" onChange={onHandleSelectChange}>
                       <option value="">Religion of flatmate</option>
@@ -212,6 +238,18 @@ const Explore = () => {
                       <option value="Student">Student</option>
                     </select>
                   </div>
+                  <div className="col-sm-3 col-lg-3">
+                    <label htmlFor="has_apartment" className="has_apartment">
+                      <input
+                        type="checkbox"
+                        /** @ts-ignore */
+                        checked={searchRequest}
+                        name="has_apartment"
+                        onChange={onHasApartmentChange}
+                      />
+                      <span>Show people without apartment</span>
+                    </label>
+                  </div>
                 </div>
               </div>
               <div className="col-12">
@@ -227,7 +265,7 @@ const Explore = () => {
           <div className="container">
             <div className="row">
               <div className="col-sm-12 mb-2">
-                <h6>Total result: {totalRequest}</h6>
+                <h6>Total result {searchRequest ? "for people without an apartment" : "for people with an apartment"}: {totalRequest}</h6>
               </div>
               <MoreDetailModal
                 open={showModal}
