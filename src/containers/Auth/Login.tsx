@@ -44,7 +44,7 @@ const Login = () => {
         toast.success("Log in successful");
         window.localStorage.setItem(
           "checkrommie__user",
-          JSON.stringify(data.data)
+          JSON.stringify(data.data.user)
         );
         window.localStorage.setItem(
           "checkrommie__token",

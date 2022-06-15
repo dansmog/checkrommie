@@ -123,6 +123,8 @@ const Profile = () => {
   const onSubmit = async (e: any) => {
     const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
     const payload = data;
+    console.log(payload);
+    window.localStorage.setItem("has_apartment", JSON.stringify(payload.has_apartment))
     e.preventDefault();
     if (data) {
       setLoading(true);
@@ -180,6 +182,7 @@ const Profile = () => {
     const userId = JSON.parse(
       window.localStorage.getItem("checkrommie__user")!
     ).id;
+
     const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
     httpRequestHelper
       .get(`/users/${userId}`, {

@@ -267,9 +267,10 @@ const Apartment = () => {
     const user = JSON.parse(window.localStorage.getItem("checkrommie__user")!);
     const userId = user.id;
     const token = JSON.parse(localStorage.getItem("checkrommie__token")!);
+    const hasApartment = JSON.parse(window.localStorage.getItem("has_apartment")!) 
     setData({
       ...data,
-      has_apartment: user.has_apartment,
+      has_apartment: hasApartment ? "yes" : "no",
     });
     if (userId) {
       if (!user.avatar && !user.gender && !user.phone_number) {

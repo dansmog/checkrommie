@@ -113,7 +113,7 @@ const Explore = () => {
     setSearchRequest(e.target.checked)
     setFilter({
       ...filter,
-      has_apartment: e.target.checked ? false : true
+      has_apartment: e.target.checked ? "no" : "yes"
     })
   };
 

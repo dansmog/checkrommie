@@ -40,7 +40,10 @@ const ForgotPassword = () => {
       } catch (err: any) {
         setLoading(false);
         if (err.response.status === 400) {
-          toast.error(err.response.data.message);
+          return toast.error(err.response.data.message);
+        }
+        if(err.response.status === 404){
+          return toast.error(err.response.data.message)
         }
       }
     }
