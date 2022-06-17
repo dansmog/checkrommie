@@ -412,7 +412,7 @@ const Apartment = () => {
               </div>
             </div>
             <div className="input__wrapper">
-              <label>Which Country is your apartment?</label>
+              <label>Which Country is your apartment in?</label>
               <select onChange={onCountryChange}>
                 <option>Select country</option>
                 {countries.map((country: any) => {
@@ -503,7 +503,7 @@ const Apartment = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>How much is your annual rent</label>
+              <label>How much is your annual rent?</label>
               <input
                 type="text"
                 name="rent_fee"
@@ -512,7 +512,7 @@ const Apartment = () => {
               />
             </div>
             <div className="input__wrapper">
-              <label>How many bedroom</label>
+              <label>How many bedroom?</label>
               <input
                 type="text"
                 name="number_of_bedroom"
@@ -521,7 +521,7 @@ const Apartment = () => {
               />
             </div>
             <div className="input__wrapper">
-              <label>How many bathroom</label>
+              <label>How many bathroom?</label>
               <input
                 type="text"
                 name="number_of_bathroom"
@@ -548,7 +548,7 @@ const Apartment = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>What are qualities are you looking at for?</label>
+              <label>What are qualities are you looking for?</label>
               <div className="qualities__wrapper">
                 {personalities.map((personality) => {
                   return (

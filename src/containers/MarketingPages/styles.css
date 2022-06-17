@@ -8,6 +8,8 @@
 .marketing h1 {
   font-size: 60px;
   font-family: var(--bold);
+  padding-left:200px;
+  padding-right: 200px;
 }
 
 .content {
@@ -24,6 +26,26 @@
   font-family: var(--regular);
 }
 
+@media screen and (max-width: 768px){
+  .marketing {
+    padding:50px;
+  }
+  .marketing h1 {
+    font-size: 32px;
+    padding-left: 50px;
+    padding-right:50px;
+  }
+  .title {
+    font-size: 24px;
+  }
+  .body {
+    font-size:16px;
+  }
+  .content {
+    padding:50px 0;
+  }
+}
+
 @media screen and (max-width:460px){
   .marketing-wrapper .navigation {
     margin-bottom: 10px !important;
@@ -33,6 +55,7 @@
   }
   .marketing h1{
     font-size:24px;
+    padding:0px;
   }
   .content {
     padding: 50px 0px;

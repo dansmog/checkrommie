@@ -6,7 +6,7 @@ const About = () => {
   return (
     <section className="marketing-wrapper">
       <Navigation />
-      <section className="marketing d-flex align-items-center justify-content-center">
+      <section className="marketing d-flex align-items-center justify-content-center text-center">
         <h1>We are on a mission to help people live and enjoy living</h1>
       </section>
       <section className="content">

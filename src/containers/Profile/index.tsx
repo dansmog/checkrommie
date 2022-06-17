@@ -335,7 +335,7 @@ const Profile = () => {
             )}
 
             <div className="input__wrapper">
-              <label>What's your Gender</label>
+              <label>What is your Gender?</label>
               <div className="gender__container">
                 <span>
                   <input
@@ -388,7 +388,7 @@ const Profile = () => {
 
             {data?.has_apartment === false && (
               <div className="input__wrapper">
-                <label>But are you looking for a flatmate/roommate?</label>
+                <label>Are you looking for a flatmate/roommate?</label>
                 <div className="gender__container">
                   <span>
                     <input
@@ -515,7 +515,7 @@ const Profile = () => {
             </div>
 
             <div className="input__wrapper">
-              <label>What's the estimate of your income</label>
+              <label>What is the estimate of your income?</label>
               <input
                 type="text"
                 name="income_estimate"
@@ -524,7 +524,7 @@ const Profile = () => {
               />
             </div>
             <div className="input__wrapper">
-              <label>What's your religion?</label>
+              <label>What is your religion?</label>
               <select onChange={onChangeReligion}>
                 <option>Select religion</option>
                 {/** @ts-ignore */}
@@ -542,7 +542,7 @@ const Profile = () => {
               </select>
             </div>
             <div className="input__wrapper">
-              <label>What are your qualities</label>
+              <label>What are your qualities?</label>
               <div className="qualities__wrapper">
                 {personalities.map((personality) => {
                   return (
