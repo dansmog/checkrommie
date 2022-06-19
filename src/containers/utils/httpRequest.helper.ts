@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 // import configKeys from './config.helper';
 
 const axiosConfig = {
-  baseURL: "https://checkroomie.herokuapp.com/api",
+  baseURL: "http://api.checkrommie.com",
 };
+
 
 const httpRequestHelper = axios.create(axiosConfig)
 
