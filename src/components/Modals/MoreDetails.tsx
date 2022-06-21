@@ -82,8 +82,9 @@ export default function MoreDetailModal({
                         <User />
                       )}
                       <div>
+                        {console.log(data)}
                         <h4>{data?.user?.name}</h4>
-                        <p>{`Male looking for male or female flatmate`}</p>
+                        <p>{`looking for ${data?.preferred_gender} flatmate`}</p>
                       </div>
                     </div>
                     <div className="right col-12 col-md-12 col-lg-5">
@@ -119,22 +120,21 @@ export default function MoreDetailModal({
                   <div className="row g-4">
                     <div className="apartment-details__items col-12">
                       <h6>Title</h6>
-
+                      {console.log(data?.user.has_apartment)}
                       <p>
-                        I am looking for a male flatmate in my 3 bedroom
-                        apartment
+                        {data?.description}
                       </p>
                     </div>
                     <div className="apartment-details__items col-12">
-                      <h6>Apartment is in</h6>
+                      <h6>Apartment is {!data?.user?.has_apartment && "prefferably "}in</h6>
                       <p>{data?.country}</p>
                     </div>
                     <div className="apartment-details__items col-12">
-                      <h6>Apartment is located at</h6>
+                      <h6>Apartment is {!data?.user?.has_apartment && "prefferably "} located at</h6>
                       <p>{data?.state}</p>
                     </div>
                     <div className="apartment-details__items col-12">
-                      <h6>In the city of</h6>
+                      <h6>{!data?.user?.has_apartment && "prefferably "} In the city of</h6>
                       <p>{data?.city}</p>
                     </div>
                     <div className="apartment-details__items col-12">
@@ -146,16 +146,16 @@ export default function MoreDetailModal({
                       <p>{data?.preferred_religion}</p>
                     </div>
                     <div className="apartment-details__items col-12 col-sm-12 col-md-6 col-lg-5">
-                      <h6>Flatmate employment status</h6>
-                      <p>I need an employed flatmate</p>
+                      <h6>{!data?.user?.has_apartment && "Preffered"} Flatmate employment status</h6>
+                      <p>{data?.employment_status}</p>
                     </div>
                     <div className="apartment-details__items col-12 col-sm-12 col-md-6 col-lg-3">
-                      <h6>Should be from?</h6>
+                      <h6> Should be from?</h6>
                       <p>Any country</p>
                     </div>
 
                     <div className="apartment-details__items col-12 col-sm-12 col-md-5 col-lg-5">
-                      <h6>Qualities I want from a flatmate</h6>
+                      <h6>{!data?.user?.has_apartment && "Preffered"} Qualities I want from a flatmate</h6>
                       <div className="apartment-details__qualities">
                         {data?.qualities.map((quality: any, i: any) => (
                           <div className="apartment-details__quality" key={i}>
