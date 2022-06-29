@@ -43,21 +43,19 @@ export const Navigation = () => {
                 <NavLink to="/">
                   <img src={Logo} alt="logo" className="logo" />
                 </NavLink>
-                <NavLink to="/explore" className="hidden-sm">
-                  Explore
-                </NavLink>
-                <NavLink to="/landlords" className="hidden-sm">
+                
+                {/* <NavLink to="/landlords" className="hidden-sm">
                   For landlords
                 </NavLink>{" "}
                 <NavLink to="/agents" className="hidden-sm">
                   For agents
-                </NavLink>
+                </NavLink> */}
               </div>
               <div className="navigation__right">
-                <NavLink to="/explore" className="hidden-lg show-sm">
+                <NavLink to="/explore" className="">
                   Explore
                 </NavLink>
-                <Link to="/login" className="hidden-sm show-sm">
+                <Link to="/login" className="show-sm">
                   Log in
                 </Link>
                 <Link to="/explore" className="hidden-sm getStarted">

@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import httpRequestHelper from "../utils/httpRequest.helper";
 import Spinner from "../../assets/images/spinner";
 import VisibleEyes from "../../assets/images/visibleEye";
+import ErrorHandler from "../../utils/ErrorHandler";
 
 interface IData {
   email: string;
@@ -55,17 +56,12 @@ const Login = () => {
         }, 3000);
       } catch (err: any) {
         setLoading(false);
-        console.log(err);
-        if (
-          err.response.status === 401 &&
-          err.response.data.message === "Kindly confirm your email address"
-        ) {
-          toast.error(err.response.data.message);
-          return setError(err.response.data.message);
+        if(err.response.status === 401 && err.response.data.message === "Kindly confirm your email address"){
+          setError(err.response.data.message)
+        }else {
+          ErrorHandler(err);
         }
-        if (err.response.status === 400) {
-          return toast.error(err.response.data.message);
-        }
+      
       }
     }
   };
