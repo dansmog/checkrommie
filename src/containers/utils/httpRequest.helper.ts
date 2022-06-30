@@ -33,7 +33,7 @@ httpRequestHelper.interceptors.response.use(
         reject(error)
       })
     }
-    if (error.response.status === 401 && error.reponse.data.message === "Your token has expired") {
+    if (error.response.status === 401 && error.reponse.data.message === "Unauthorized") {
       toast.error("Your token has expired, redirecting you to login page");
       localStorage.removeItem("checkrommie__user");
       setTimeout(() => {
