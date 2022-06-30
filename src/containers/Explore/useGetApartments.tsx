@@ -23,11 +23,16 @@ export default function useGetApartments(filter: any, pageNumber: any) {
         params: { ...filter, page: pageNumber, take: 12 },
       })
       .then(({ data }) => {
+        console.log(data)
         setHasMore(data?.data?.meta?.hasNextPage);
-        setApartments((prevApartments: any) => {
-          /** @ts-ignore */
-          return [...new Set([...prevApartments, ...data.data.data])];
-        });
+        // setApartments((prevApartments: any) => {
+        //   /** @ts-ignore */
+        //   return [...new Set([...prevApartments, ...data?.data?.data])];
+        // });
+        setApartments([
+          ...apartments,
+          ...data?.data?.data
+        ])
         setLoading(false);
         setPageLoading(false);
         setSuccess(true);
